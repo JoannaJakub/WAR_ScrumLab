@@ -18,7 +18,7 @@
 <body class="recipes-section">
 <header class="page-header">
     <nav class="navbar navbar-expand-lg justify-content-around">
-        <a href="/" class="navbar-brand main-logo">
+        <a href="<c:url value="/"/>" class="navbar-brand main-logo">
             Zaplanuj <span>Jedzonko</span>
         </a>
         <ul class="nav nounderline text-uppercase">
@@ -120,7 +120,7 @@
                            aria-label="Recipient's username" aria-describedby="basic-addon2">
                     <div class="input-group-append">
                         <button class="input-group-text btn-color border-0 rounded-0" type="submit" id="basic-addon2"><a
-                                href="index.html">Lorem</a></button>
+                                href="home.jsp">Lorem</a></button>
                     </div>
                 </div>
                 <div class="container d-flex-row">
