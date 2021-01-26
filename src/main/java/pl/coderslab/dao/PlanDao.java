@@ -2,6 +2,7 @@ package pl.coderslab.dao;
 
 import pl.coderslab.exception.NotFoundException;
 
+import pl.coderslab.model.LastPlan;
 import pl.coderslab.model.Plan;
 import pl.coderslab.utils.DbUtil;
 
@@ -19,7 +20,14 @@ public class PlanDao {
     private static final String createQUERY = "INSERT INTO scrumlab.plan(id, name, description, created, admin_id) VALUES (?,?,?,?,?);";
     private static final String deleteQUERY = "DELETE FROM scrumlab.plan where id = ?;";
     private static final String updateQUERY = "UPDATE scrumlab.plan SET name = ? , description = ?, created = ?, admin_id = ? WHERE	id = ?;";
-    private static final String countPlansQuery = "SELECT count(admin_id) FROM scrumlab.plan WHERE admin_id=?;";
+    private static final String countPlansQUERY = "SELECT count(admin_id) FROM scrumlab.plan WHERE admin_id=?;";
+
+    private static final String lastPlanQUERY = "SELECT day_name.name as day_name, meal_name,  recipe.name as recipe_name, recipe.description as recipe_description" +
+            "    FROM `recipe_plan`" +
+            "    JOIN day_name on day_name.id=day_name_id" +
+            "    JOIN recipe on recipe.id=recipe_id WHERE" +
+            "    recipe_plan.plan_id =  (SELECT MAX(id) from plan WHERE admin_id = ?)" +
+            "    ORDER by day_name.display_order, recipe_plan.display_order";
 
 
     public Plan read(int id) {
@@ -129,16 +137,16 @@ public class PlanDao {
 
     }
 
-    public int countPlansQuery(int id) {
+    public int countPlansQUERY(int id) {
         int counter = 0;
         try (Connection connection = DbUtil.getConnection();
-             PreparedStatement statement = connection.prepareStatement(countPlansQuery)) {
+             PreparedStatement statement = connection.prepareStatement(countPlansQUERY)) {
             statement.setInt(1, id);
 
 
             try (ResultSet resultSet = statement.executeQuery()) {
                 while (resultSet.next()) {
-                    counter = resultSet.getInt("'count(admin_id)'");
+                    counter = resultSet.getInt("count(admin_id)");
                 }
             }
 
@@ -146,6 +154,31 @@ public class PlanDao {
             e.printStackTrace();
         }
         return counter;
+
+    }
+
+    public List<LastPlan> lastPlanQUERY(int id) {
+        List<LastPlan> planList = new ArrayList<>();
+        try (Connection connection = DbUtil.getConnection();
+             PreparedStatement statement = connection.prepareStatement(lastPlanQUERY)
+        ) {
+            statement.setInt(1, id);
+            try (ResultSet resultSet = statement.executeQuery()) {
+                while (resultSet.next()) {
+                    LastPlan lastPlan = new LastPlan();
+                    lastPlan.setDayName(resultSet.getString("day_name"));
+                    lastPlan.setMealName(resultSet.getString("meal_name"));
+                    lastPlan.setRecipeName(resultSet.getString("recipe_name"));
+                    lastPlan.setRecipeDescription(resultSet.getString("recipe_description"));
+                    lastPlan.setRecipeId(resultSet.getString("id"));
+                    planList.add(lastPlan);
+                }
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return planList;
 
     }
 
