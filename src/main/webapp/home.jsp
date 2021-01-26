@@ -16,6 +16,7 @@
 </head>
 
 <body>
+
 <%@ include file="fixed-header.jsp" %>
 
 <section class="padding-large bg-light">

@@ -11,12 +11,12 @@
           crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css?family=Charmonman:400,700|Open+Sans:400,600,700&amp;subset=latin-ext"
           rel="stylesheet">
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
 </head>
 
 <body class="recipes-section">
-<%@ include file="fixed-header.jsp" %>
+<%@ include file="../fixed-header.jsp" %>
 
 <section>
     <div class="row padding-small">
@@ -97,7 +97,7 @@
                            aria-label="Recipient's username" aria-describedby="basic-addon2">
                     <div class="input-group-append">
                         <button class="input-group-text btn-color border-0 rounded-0" type="submit" id="basic-addon2"><a
-                                href="home.jsp">Lorem</a></button>
+                                href="../home.jsp">Lorem</a></button>
                     </div>
                 </div>
                 <div class="container d-flex-row">
@@ -117,9 +117,9 @@
     </div>
 </section>
 
-<%@ include file="fixed-footer.jsp" %>
+<%@ include file="../fixed-footer.jsp" %>
 
-<%@ include file="fixed-bootstrap.jsp" %>
+<%@ include file="../fixed-bootstrap.jsp" %>
 
 </body>
 </html>
