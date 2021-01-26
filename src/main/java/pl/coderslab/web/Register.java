@@ -1,5 +1,8 @@
 package pl.coderslab.web;
 
+import pl.coderslab.dao.AdminDao;
+import pl.coderslab.model.Admin;
+
 import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
@@ -15,6 +18,33 @@ public class Register extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        Admin admin = new Admin();
+        HttpSession session = request.getSession();
+        String name = request.getParameter("name");
+        String surname = request.getParameter("surname");
+        String email = request.getParameter("email");
+        String password = request.getParameter("password");
 
+        session.setAttribute("name", name);
+        session.setAttribute("surname", surname);
+        session.setAttribute("email", email);
+        session.setAttribute("password", password);
+        session.setAttribute("re-password", request.getAttribute("re-password"));
+
+        if (!request.getParameter("password").equals(request.getParameter("re-password"))) {
+            getServletContext().getRequestDispatcher("/register-failed.jsp")
+                    .forward(request, response);
+        } else {
+
+            admin.setFirstName(name);
+            admin.setLastName(surname);
+            admin.setEmail(email);
+            admin.setPassword(password);
+
+            AdminDao adminDao = new AdminDao();
+            adminDao.create(admin);
+
+            response.sendRedirect("/login");
+        }
     }
 }

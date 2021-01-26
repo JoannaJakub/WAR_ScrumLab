@@ -10,24 +10,29 @@ public class Admin {
     private String password;
     private int superAdmin;
     private int enable;
+    private String unsecurePassword;
 
-    public Admin(int id, String firstName, String lastName, String email, String password, int superAdmin, int enable) {
+
+    public Admin(int id, String firstName, String lastName, String email, String password, int superAdmin, int enable, String unsecurePassword) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
-        String hashedPassword = BCrypt.hashpw(password, BCrypt.gensalt());
-        this.password = hashedPassword;
+        this.password = password;
         this.superAdmin = superAdmin;
         this.enable = enable;
-    }
-
-    @Override
-    public String toString() {
-        return "Admin [id=" + id + " ,firstName=" + firstName + ", lastName=" + lastName + ", email=" + email + ", password=" + password + ", superAdmin=" + superAdmin + ", enable=" + enable + "]";
+        this.unsecurePassword = unsecurePassword;
     }
 
     public Admin() {
+    }
+
+    public String getUnsecurePassword() {
+        return unsecurePassword;
+    }
+
+    public void setUnsecurePassword(String unsecurePassword) {
+        this.unsecurePassword = unsecurePassword;
     }
 
     public int getId() {
@@ -67,7 +72,7 @@ public class Admin {
     }
 
     public void setPassword(String password) {
-        String hashedPassword = BCrypt.hashpw(password, BCrypt.gensalt());
+        this.password = BCrypt.hashpw(password, BCrypt.gensalt());
     }
 
     public int getSuperAdmin() {

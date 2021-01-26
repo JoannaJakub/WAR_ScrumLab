@@ -18,6 +18,7 @@ public class AdminDao {
     private static final String FIND_ALL_ADMINS_QUERY = "SELECT * FROM scrumlab.admins;";
     private static final String READ_ADMIN_QUERY = "SELECT * from scrumlab.admins where id = ?;";
     private static final String UPDATE_ADMIN_QUERY = "UPDATE scrumlab.admins SET first_name = ? , last_name = ?, email = ?, password = ?, superadmin = ?, enable = ? WHERE	id = ?;";
+    private static final String LOGIN_SEARCH_NAME = "SELECT * from scrumlab.admins WHERE email = ?;";
 
     public Admin read(int id) {
         Admin admin = new Admin();
@@ -130,5 +131,25 @@ public class AdminDao {
             e.printStackTrace();
         }
 
+    }    public Admin LoginSearch(String email) {
+        Admin admin = new Admin();
+        try (Connection connection = DbUtil.getConnection();
+             PreparedStatement statement = connection.prepareStatement(LOGIN_SEARCH_NAME)
+        ) {
+            statement.setString(1, email);
+            try (ResultSet resultSet = statement.executeQuery()) {
+                while (resultSet.next()) {
+                    admin.setEmail(resultSet.getString("email"));
+                    admin.setUnsecurePassword(resultSet.getString("password"));
+                }
+            }
+        } catch (Exception e) {
+
+            return null;
+        }
+        return admin;
+
     }
+
+
 }

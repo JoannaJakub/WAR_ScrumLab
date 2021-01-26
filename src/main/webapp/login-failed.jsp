@@ -1,11 +1,10 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-
 <!DOCTYPE html>
 <html lang="pl">
 
 <head>
-    <meta charset="UTF-8">
+    <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Zaplanuj Jedzonko</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
@@ -24,26 +23,16 @@
     <div class="container pt-4 pb-4">
         <div class="border-dashed view-height">
             <div class="container w-25">
-                <!-- fix action, method -->
-                <!-- add name attribute for all inputs -->
-                <form class="padding-small text-center" method="post" action="<c:url value="/register"/>">
-                    <h1 class="text-color-darker">Rejestracja</h1>
+                <form class="padding-small text-center" method="post" action="<c:url value="/login"/>">
+                    <h1 class="text-color-darker">Logowanie</h1>
+                    <h6>Logowanie nie powiodło się. Spróbuj jeszcze raz</h6>
                     <div class="form-group">
-                        <input type="text" class="form-control" id="name" name="name" placeholder="podaj imię">
-                    </div>
-                    <div class="form-group">
-                        <input type="text" class="form-control" id="surname" name="surname" placeholder="podaj nazwisko">
-                    </div>
-                    <div class="form-group">
-                        <input type="email" class="form-control" id="email" name="email" placeholder="podaj email">
+                        <input type="text" class="form-control" id="email" name="email" placeholder="podaj adres email">
                     </div>
                     <div class="form-group">
                         <input type="password" class="form-control" id="password" name="password" placeholder="podaj hasło">
                     </div>
-                    <div class="form-group">
-                        <input type="password" class="form-control" id="re-password" name="re-password" placeholder="powtórz hasło">
-                    </div>
-                    <button class="btn btn-color rounded-0" type="submit">Zarejestruj</button>
+                    <button class="btn btn-color rounded-0" type="submit">Zaloguj</button>
                 </form>
             </div>
         </div>
