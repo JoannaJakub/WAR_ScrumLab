@@ -19,7 +19,7 @@ public class PlanDao {
     private static final String createQUERY = "INSERT INTO scrumlab.plan(id, name, description, created, admin_id) VALUES (?,?,?,?,?);";
     private static final String deleteQUERY = "DELETE FROM scrumlab.plan where id = ?;";
     private static final String updateQUERY = "UPDATE scrumlab.plan SET name = ? , description = ?, created = ?, admin_id = ? WHERE	id = ?;";
-    private static final String userPlanQuery = "SELECT * FROM scrumlab.plan WHERE admin_id=?;";
+    private static final String countPlansQuery = "SELECT count(admin_id) FROM scrumlab.plan WHERE admin_id=?;";
 
 
     public Plan read(int id) {
@@ -129,26 +129,33 @@ public class PlanDao {
 
     }
 
-    public List<Plan> userPlanQuery(int id) {
-        List<Plan> userPlanList = new ArrayList<>();
+    public void countPlansQuery(int id) {
         try (Connection connection = DbUtil.getConnection();
-             PreparedStatement statement = connection.prepareStatement(userPlanQuery);
-             ResultSet resultSet = statement.executeQuery()) {
+             PreparedStatement statement = connection.prepareStatement(countPlansQuery)) {
+            statement.setInt(1, id);
 
-            while (resultSet.next()) {
-                Plan userPlan = new Plan();
-                userPlan.setId(resultSet.getInt("id"));
-                userPlan.setName(resultSet.getString("name"));
-                userPlan.setDescription(resultSet.getString("description"));
-                userPlan.setCreated(resultSet.getString("created"));
-                userPlan.setAdminId(resultSet.getInt("admin_id"));
-                userPlanList.add(userPlan);
+            int counter = 0;
+            try (ResultSet resultSet = statement.executeQuery()) {
+                while (resultSet.next()) {
+                    counter = resultSet.getInt("count(admin_id)");
+                }
             }
+            System.out.println(counter);
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return  userPlanList;
 
     }
 
 }
+
+
+
+
+
+
+
+
+
+
