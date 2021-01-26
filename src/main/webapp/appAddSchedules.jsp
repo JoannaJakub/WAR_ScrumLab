@@ -83,7 +83,7 @@
                                 Nazwa planu
                             </label>
                             <div class="col-sm-10">
-                                <input name="planName" class="form-control" id="planName" placeholder="Nazwa planu">
+                                <input name="planName"  class="form-control" id="planName" placeholder="Nazwa planu">
                             </div>
                         </div>
                         <div class="form-group row">
