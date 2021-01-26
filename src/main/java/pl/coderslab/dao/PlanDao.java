@@ -129,22 +129,23 @@ public class PlanDao {
 
     }
 
-    public void countPlansQuery(int id) {
+    public int countPlansQuery(int id) {
+        int counter = 0;
         try (Connection connection = DbUtil.getConnection();
              PreparedStatement statement = connection.prepareStatement(countPlansQuery)) {
             statement.setInt(1, id);
 
-            int counter = 0;
+
             try (ResultSet resultSet = statement.executeQuery()) {
                 while (resultSet.next()) {
-                    counter = resultSet.getInt("count(admin_id)");
+                    counter = resultSet.getInt("'count(admin_id)'");
                 }
             }
-            System.out.println(counter);
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        return counter;
 
     }
 
