@@ -18,7 +18,7 @@ public class LastPlan {
         this.recipeDescription = recipeDescription;
         this.recipeId = recipeId;
     }
-
+//
     public String getDayName() {
         return dayName;
     }
