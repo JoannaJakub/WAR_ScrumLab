@@ -19,9 +19,9 @@ public class PlanDao {
     private static final String createQUERY = "INSERT INTO scrumlab.plan(id, name, description, created, admin_id) VALUES (?,?,?,?,?);";
     private static final String deleteQUERY = "DELETE FROM scrumlab.plan where id = ?;";
     private static final String updateQUERY = "UPDATE scrumlab.plan SET name = ? , description = ?, created = ?, admin_id = ? WHERE	id = ?;";
+    private static final String userPlanQuery = "SELECT * FROM scrumlab.plan WHERE admin_id=?;";
 
 
-    // Kom 1 : Nie jestem w stanie stwierdzic , czy dane bedą ukrywane czy trzeba QUERY zmienić ale aktualnie zakładam wariant z ukrywaniem (po co użytkownikowi wiedza na temat id admina).
     public Plan read(int id) {
         Plan plan = new Plan();
         try (Connection connection = DbUtil.getConnection();
@@ -44,7 +44,6 @@ public class PlanDao {
 
     }
 
-    // Kom 2 : Ten sam przypadek co wyżej tutaj
     public List<Plan> findAll() {
         List<Plan> planList = new ArrayList<>();
         try (Connection connection = DbUtil.getConnection();
@@ -68,7 +67,6 @@ public class PlanDao {
 
     }
 
-    // Kom 3: Nie jestem tu pewny odnośnie created oraz superAdmin, ponieważ makieta ma tam tylko pola name oraz description, a przeciez nie kazdy tworzący plan będzie adminem.
     public Plan create(Plan plan) {
         try (Connection connection = DbUtil.getConnection();
              PreparedStatement insertStm = connection.prepareStatement(createQUERY,
@@ -114,7 +112,7 @@ public class PlanDao {
             e.printStackTrace();
         }
     }
-// Kom 4 : Przypadłość z Kom 1,2 - nie będziemy chcieli domyślnie zmieniać admin_id gdy jesteśmy użytkownikami
+
     public void update(Plan plan) {
         try (Connection connection = DbUtil.getConnection();
              PreparedStatement statement = connection.prepareStatement(updateQUERY)) {
@@ -130,8 +128,27 @@ public class PlanDao {
         }
 
     }
-}
 
-// Po zweryfikowaniu i pózniejszym zaakceptowaniu proszę o usunięcię wszystkich komentarzy!!!
-// W razie jakichkolwiek błędów przypominam o wrzuceniu kafelka , którego dotyczy kod
-// Po wykonanym code review napisz na slacku (czy to na priv czy poprzez oznaczenie na czacie) o wyniku owage code review.
+    public List<Plan> userPlanQuery(int id) {
+        List<Plan> userPlanList = new ArrayList<>();
+        try (Connection connection = DbUtil.getConnection();
+             PreparedStatement statement = connection.prepareStatement(userPlanQuery);
+             ResultSet resultSet = statement.executeQuery()) {
+
+            while (resultSet.next()) {
+                Plan userPlan = new Plan();
+                userPlan.setId(resultSet.getInt("id"));
+                userPlan.setName(resultSet.getString("name"));
+                userPlan.setDescription(resultSet.getString("description"));
+                userPlan.setCreated(resultSet.getString("created"));
+                userPlan.setAdminId(resultSet.getInt("admin_id"));
+                userPlanList.add(userPlan);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return  userPlanList;
+
+    }
+
+}
