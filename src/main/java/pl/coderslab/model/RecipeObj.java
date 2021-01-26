@@ -1,6 +1,6 @@
 package pl.coderslab.model;
 
-public class Recipe {
+public class RecipeObj {
 
     private int id;
     private String name;
@@ -19,7 +19,7 @@ public class Recipe {
                 + ", preparation=" + preparation +", admin_id=" + admin_id + "]";
     }
 
-    public Recipe() {
+    public RecipeObj() {
     }
 
     public int getId() {
@@ -30,7 +30,7 @@ public class Recipe {
         this.id = id;
     }
 
-    public Recipe(String name, String ingredients, String description, String created, String updated,
+    public RecipeObj(String name, String ingredients, String description, String created, String updated,
                   int preparation_time, String preparation, int admin_id) {
         this.name = name;
         this.ingredients = ingredients;

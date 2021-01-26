@@ -1,7 +1,7 @@
 package pl.coderslab.dao;
 
 import pl.coderslab.exception.NotFoundException;
-import pl.coderslab.model.Recipe;
+import pl.coderslab.model.RecipeObj;
 import pl.coderslab.utils.DbUtil;
 
 import java.sql.Connection;
@@ -21,8 +21,8 @@ public class RecipeDao {
             "name = ? , ingredients = ?, description = ?, created = ?, updated = ?, " +
             "preparation_time = ?, preparation = ?, admin_id = ? " + "WHERE	id = ?;";
 
-    public Recipe read(Integer recipeId) {
-        Recipe recipe = new Recipe();
+    public RecipeObj read(Integer recipeId) {
+        RecipeObj recipe = new RecipeObj();
         try (Connection connection = DbUtil.getConnection();
              PreparedStatement statement = connection.prepareStatement(READ_RECIPE_QUERY)
         ) {
@@ -47,14 +47,14 @@ public class RecipeDao {
 
     }
 
-    public List<Recipe> findAll() {
-        List<Recipe> recipeList = new ArrayList<>();
+    public List<RecipeObj> findAll() {
+        List<RecipeObj> recipeList = new ArrayList<>();
         try (Connection connection = DbUtil.getConnection();
              PreparedStatement statement = connection.prepareStatement(FIND_ALL_RECIPES_QUERY);
              ResultSet resultSet = statement.executeQuery()) {
 
             while (resultSet.next()) {
-                Recipe recipeToAdd = new Recipe();
+                RecipeObj recipeToAdd = new RecipeObj();
                 recipeToAdd.setId(resultSet.getInt("id"));
                 recipeToAdd.setName(resultSet.getString("name"));
                 recipeToAdd.setIngredients(resultSet.getString("ingredients"));
@@ -74,7 +74,7 @@ public class RecipeDao {
 
     }
 
-    public Recipe create(Recipe recipe) {
+    public RecipeObj create(RecipeObj recipe) {
         try (Connection connection = DbUtil.getConnection();
              PreparedStatement insertStm = connection.prepareStatement(CREATE_RECIPE_QUERY,
                      PreparedStatement.RETURN_GENERATED_KEYS)) {
@@ -122,7 +122,7 @@ public class RecipeDao {
         }
     }
 
-    public void update(Recipe recipe) {
+    public void update(RecipeObj recipe) {
         try (Connection connection = DbUtil.getConnection();
              PreparedStatement statement = connection.prepareStatement(UPDATE_RECIPE_QUERY)) {
             statement.setInt(9, recipe.getId());
