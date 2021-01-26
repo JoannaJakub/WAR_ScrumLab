@@ -68,7 +68,6 @@ public class Admin {
 
     public void setPassword(String password) {
         String hashedPassword = BCrypt.hashpw(password, BCrypt.gensalt());
-        this.password = hashedPassword;
     }
 
     public int getSuperAdmin() {
