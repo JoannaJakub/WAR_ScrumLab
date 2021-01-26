@@ -18,21 +18,21 @@
 <body>
 <header class="page-header">
     <nav class="navbar navbar-expand-lg justify-content-around">
-        <a href="/" class="navbar-brand main-logo">
+        <a href="<c:url value="/"/>" class="navbar-brand main-logo">
             Zaplanuj <span>Jedzonko</span>
         </a>
         <ul class="nav nounderline text-uppercase">
             <li class="nav-item ml-4">
-                <a class="nav-link color-header" href="login.html">logowanie</a>
+                <a class="nav-link color-header" href="login.jsp">logowanie</a>
             </li>
             <li class="nav-item ml-4">
-                <a class="nav-link color-header" href="registration.html">rejestracja</a>
+                <a class="nav-link color-header" href="registration.jsp">rejestracja</a>
             </li>
             <li class="nav-item ml-4">
                 <a class="nav-link" href="#about">o aplikacji</a>
             </li>
             <li class="nav-item ml-4">
-                <a class="nav-link disabled" href="recipes.html">Przepisy</a>
+                <a class="nav-link disabled" href="recipes.jsp">Przepisy</a>
             </li>
             <li class="nav-item ml-4">
                 <a class="nav-link disabled" href="#contact">Kontakt</a>
@@ -92,7 +92,7 @@
         </div>
         <div class="ml-4 align-self-center">
             <button class="btn btn-color rounded-0 mt-4 pl-4 pr-4">
-                <a href="index.html">Lorem ipsum</a>
+                <a href="home.jsp">Lorem ipsum</a>
             </button>
         </div>
     </div>
@@ -135,8 +135,8 @@
                     <input type="text" class="form-control border-0 rounded-0" placeholder=""
                            aria-label="Recipient's username" aria-describedby="basic-addon2">
                     <div class="input-group-append">
-                        <button class="input-group-text btn-color border-0 rounded-0" type="submit" id="basic-addon2">
-                            <a href="index.html">Lorem</a>
+                        <button class="input-group-text btn-color border-0 rounded-0" type="submit" id="basic-addon1">
+                            <a href="home.jsp">Lorem</a>
                         </button>
                     </div>
                 </div>
@@ -188,7 +188,7 @@
                            aria-label="Recipient's username" aria-describedby="basic-addon2">
                     <div class="input-group-append">
                         <button class="input-group-text btn-color border-0 rounded-0" type="submit" id="basic-addon2"><a
-                                href="index.html">Lorem</a></button>
+                                href="home.jsp">Lorem</a></button>
                     </div>
                 </div>
                 <div class="container d-flex-row">
