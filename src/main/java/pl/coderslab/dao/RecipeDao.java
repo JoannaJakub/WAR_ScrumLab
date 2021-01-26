@@ -21,6 +21,8 @@ public class RecipeDao {
             "name = ? , ingredients = ?, description = ?, created = ?, updated = ?, " +
             "preparation_time = ?, preparation = ?, admin_id = ? " + "WHERE	id = ?;";
 
+    private static final String COUNT_RECIPES_BY_ID_QUERY = "SELECT COUNT(admin_id) FROM scrumlab.recipe WHERE admin_id = ?;";
+
     public Recipe read(Integer recipeId) {
         Recipe recipe = new Recipe();
         try (Connection connection = DbUtil.getConnection();
@@ -44,6 +46,22 @@ public class RecipeDao {
             e.printStackTrace();
         }
         return recipe;
+
+    }
+
+    public int countRecipes(Integer admin_Id) {
+        int count = 0;
+        try (Connection connection = DbUtil.getConnection();
+             PreparedStatement statement = connection.prepareStatement(COUNT_RECIPES_BY_ID_QUERY)
+        ) {
+            statement.setInt(1, admin_Id);
+            try (ResultSet resultSet = statement.executeQuery()) {
+                count = resultSet.getInt("`COUNT(admin_id)`");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return count;
 
     }
 
