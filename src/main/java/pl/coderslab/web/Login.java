@@ -13,8 +13,19 @@ import java.io.IOException;
 public class Login extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        getServletContext().getRequestDispatcher("/login.jsp")
-                .forward(request, response);
+        HttpSession sess = request.getSession();
+
+        if (sess.getAttribute("enable") == null) {
+            getServletContext().getRequestDispatcher("/login.jsp")
+                    .forward(request, response);
+        }
+        if (sess.getAttribute("enable").equals(1)) {
+            getServletContext().getRequestDispatcher("/dashboard.jsp")
+                    .forward(request, response);
+        } else {
+            getServletContext().getRequestDispatcher("/login.jsp")
+                    .forward(request, response);
+        }
 
     }
 
@@ -23,6 +34,8 @@ public class Login extends HttpServlet {
 
         String email = request.getParameter("email");
         String password = request.getParameter("password");
+
+        HttpSession sess = request.getSession();
 
         AdminDao adminDao = new AdminDao();
 
@@ -37,6 +50,8 @@ public class Login extends HttpServlet {
         } else {
             getServletContext().getRequestDispatcher("/dashboard.jsp")
                     .forward(request, response);
+            sess.setAttribute("enable" , admin.getEnable());
+            sess.setAttribute("id" , admin.getId());
         }
     }
 }

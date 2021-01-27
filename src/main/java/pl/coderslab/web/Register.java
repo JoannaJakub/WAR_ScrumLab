@@ -28,12 +28,6 @@ public class Register extends HttpServlet {
         String email = request.getParameter("email");
         String password = request.getParameter("password");
 
-        session.setAttribute("name", name);
-        session.setAttribute("surname", surname);
-        session.setAttribute("email", email);
-        session.setAttribute("password", password);
-        session.setAttribute("re-password", request.getAttribute("re-password"));
-
         Pattern nameReg = Pattern.compile("[A-Za-z]{3,}");
         Matcher nameMatch = nameReg.matcher(name);
         if (!nameMatch.matches()) {
