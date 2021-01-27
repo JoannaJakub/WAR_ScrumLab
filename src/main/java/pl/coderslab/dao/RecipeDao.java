@@ -49,7 +49,7 @@ public class RecipeDao {
 
     }
 
-    public int countRecipes(Integer admin_Id) {
+    public static int countRecipes(Integer admin_Id) {
         int count = 0;
         try (Connection connection = DbUtil.getConnection();
              PreparedStatement statement = connection.prepareStatement(COUNT_RECIPES_BY_ID_QUERY)
@@ -160,3 +160,4 @@ public class RecipeDao {
     }
 
 }
+
