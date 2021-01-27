@@ -10,9 +10,10 @@ public class Plan {
     public Plan() {
     }
 
-    public Plan(int id, String name, String description, int adminId) {
+    public Plan(int id, String name, String created, String description, int adminId) {
         this.id = id;
         this.name = name;
+        this.created = created;
         this.description = description;
         this.adminId = adminId;
     }
