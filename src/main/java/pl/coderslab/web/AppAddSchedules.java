@@ -32,7 +32,6 @@ public class AppAddSchedules extends HttpServlet {
         Calendar cal = Calendar.getInstance();
         String date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(cal.getTime());
         int adminId = (int) session.getAttribute("id");
-
         Plan plan = new Plan(0, name, date,description, adminId);
         PlanDao planDao = new PlanDao();
         planDao.create(plan);

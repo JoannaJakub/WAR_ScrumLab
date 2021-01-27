@@ -20,8 +20,7 @@ public class Login extends HttpServlet {
                     .forward(request, response);
         }
         if (sess.getAttribute("enable").equals(1)) {
-            getServletContext().getRequestDispatcher("/dashboard.jsp")
-                    .forward(request, response);
+     response.sendRedirect("/dashboard");
         } else {
             getServletContext().getRequestDispatcher("/login.jsp")
                     .forward(request, response);
