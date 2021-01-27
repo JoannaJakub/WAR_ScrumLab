@@ -1,6 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-
 <html lang="pl">
 
 <head>
@@ -25,6 +24,7 @@
             <div class="container w-25">
                 <form class="padding-small text-center" method="post" action="<c:url value="/login"/>">
                     <h1 class="text-color-darker">Logowanie</h1>
+                    <h6>Logowanie nie powiodło się. Spróbuj jeszcze raz</h6>
                     <div class="form-group">
                         <input type="text" class="form-control" id="email" name="email" placeholder="podaj adres email">
                     </div>
