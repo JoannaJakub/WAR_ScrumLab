@@ -27,6 +27,7 @@ public class Register extends HttpServlet {
         String surname = request.getParameter("surname");
         String email = request.getParameter("email");
         String password = request.getParameter("password");
+        String rePassword = request.getParameter("re-password");
 
         Pattern nameReg = Pattern.compile("[A-Za-z]{3,}");
         Matcher nameMatch = nameReg.matcher(name);
@@ -42,7 +43,7 @@ public class Register extends HttpServlet {
                     .forward(request, response);
         }
 
-        if (!request.getParameter("password").equals(request.getParameter("re-password"))) {
+        if (!request.getParameter("password").equals(rePassword)) {
             getServletContext().getRequestDispatcher("/register-failed.jsp")
                     .forward(request, response);
         } else {
