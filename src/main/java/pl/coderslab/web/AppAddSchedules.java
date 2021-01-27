@@ -21,20 +21,19 @@ public class AppAddSchedules extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        response.setCharacterEncoding("UTF-8");
-        response.setContentType("text/html");
         getServletContext().getRequestDispatcher("/appAddSchedules.jsp").forward(request, response);
     }
 
     public void setUpPlan(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
+
         String name = request.getParameter("planName");
         String description = request.getParameter("planDesc");
         Calendar cal = Calendar.getInstance();
         String date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(cal.getTime());
         int adminId = (int) session.getAttribute("id");
-        Plan plan = new Plan(0, name, description, adminId);
-        plan.setCreated(date);
+
+        Plan plan = new Plan(0, name, date,description, adminId);
         PlanDao planDao = new PlanDao();
         planDao.create(plan);
     }
