@@ -35,6 +35,7 @@
                 <!-- add name attribute for all inputs -->
                 <form class="padding-small text-center" method="post" action="<c:url value="/register"/>">
                     <h1 class="text-color-darker">Rejestracja</h1>
+                    <h6>Rejestracja nie powiodła się. Spróbuj ponownie</h6>
                     <div class="form-group">
                         <input type="text" class="form-control" id="name" name="name" placeholder="podaj imię">
                     </div>
@@ -46,7 +47,7 @@
                         <input type="email" class="form-control" id="email" name="email" placeholder="podaj email">
                     </div>
                     <div class="form-group">
-                        <h6>Hasła różnią się. Spróbuj ponownie</h6>
+
                         <input type="password" class="form-control" id="password" name="password"
                                placeholder="podaj hasło">
                     </div>
