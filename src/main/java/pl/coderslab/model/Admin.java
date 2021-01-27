@@ -90,5 +90,19 @@ public class Admin {
     public void setEnable(int enable) {
         this.enable = enable;
     }
+
+    @Override
+    public String toString() {
+        return "Admin{" +
+                "id=" + id +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", superAdmin=" + superAdmin +
+                ", enable=" + enable +
+                ", unsecurePassword='" + unsecurePassword + '\'' +
+                '}';
+    }
 }
 
