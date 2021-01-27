@@ -35,7 +35,7 @@ public class Login extends HttpServlet {
             getServletContext().getRequestDispatcher("/login-failed.jsp")
                     .forward(request, response);
         } else {
-            getServletContext().getRequestDispatcher("/home.jsp")
+            getServletContext().getRequestDispatcher("/dashboard.jsp")
                     .forward(request, response);
         }
     }
