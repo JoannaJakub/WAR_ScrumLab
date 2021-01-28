@@ -1,18 +1,11 @@
 package pl.coderslab.web;
 
-import pl.coderslab.dao.AdminDao;
-import pl.coderslab.dao.LastPlan;
-import pl.coderslab.dao.PlanDao;
-import pl.coderslab.dao.RecipeDao;
-import pl.coderslab.model.Admin;
-import pl.coderslab.model.Plan;
 
+import pl.coderslab.dao.PlanDao;
 import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 
 @WebServlet("/app/dashboard")
