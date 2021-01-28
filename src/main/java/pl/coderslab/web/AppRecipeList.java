@@ -12,10 +12,14 @@ public class AppRecipeList extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+        response.setCharacterEncoding("UTF-8");
+        response.setContentType("text/html");
 
+        HttpSession sess = request.getSession();
+        int adminId = (int) sess.getAttribute("id");
 
         RecipeDao recipeDao = new RecipeDao();
-        request.setAttribute("recipeList", recipeDao.findAll());
+        sess.setAttribute("recipeList", recipeDao.readRecipesByAdminId(adminId));
         getServletContext().getRequestDispatcher("/appRecipeList.jsp")
                 .forward(request, response);
 
