@@ -16,6 +16,7 @@
     </li>
     <li class="nav-item">
 <%--        <a class="nav-link" href="<c:url value="/app/plan"/>">--%>
+    <a class="nav-link" href="appSchedules.jsp">
             <span>Plany</span>
             <i class="fas fa-angle-right"></i>
         </a>

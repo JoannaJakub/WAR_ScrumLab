@@ -57,12 +57,12 @@
             </div>
             <div class="m-4 p-4 border-dashed">
                 <h2 class="dashboard-content-title">
-                    <span>Ostatnio dodany plan:</span> Plan jak u mamy
+                    <span>Ostatnio dodany plan:</span> ${recentPlanName}
                 </h2>
                 <table class="table">
                     <thead>
                     <tr class="d-flex">
-                        <th class="col-2">Poniedziałek</th>
+                        <th class="col-2">${lastPlanDay}</th>
                         <th class="col-8"></th>
                         <th class="col-2"></th>
                     </tr>

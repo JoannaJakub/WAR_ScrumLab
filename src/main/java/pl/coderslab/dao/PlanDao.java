@@ -26,8 +26,15 @@ public class PlanDao {
             "    JOIN recipe on recipe.id=recipe_id WHERE" +
             "    recipe_plan.plan_id =  (SELECT MAX(id) from plan WHERE admin_id = ?)" +
             "    ORDER by day_name.display_order, recipe_plan.display_order";
-    private static final String lastPlanName ="SELECT plan.name AS plan_name FROM plan " +
+
+    private static final String lastPlanNameQUERY ="SELECT plan.name AS plan_name FROM plan " +
             "WHERE id = (SELECT MAX(id) FROM plan WHERE admin_id = ?);";
+    private static final String lastPlanDayQUERY = "SELECT day_name.name as day_name\n" +
+            "FROM `recipe_plan`JOIN day_name on day_name.id=day_name_id\n" +
+            "WHERE recipe_plan.plan_id =  (SELECT MAX(id) from plan WHERE admin_id = ?)\n" +
+            " ORDER by day_name.display_order DESC limit 1;";
+
+
 
     public Plan read(int id) {
         Plan plan = new Plan();
@@ -190,10 +197,25 @@ public class PlanDao {
 
         return planList;
 
+
+    }
+    public static String getLastPlanDay(int id) {
+        try (Connection conn = DbUtil.getConnection();
+             PreparedStatement preparedStatement = conn.prepareStatement(lastPlanDayQUERY)
+        ) {
+            preparedStatement.setInt(1, id);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                return resultSet.getString("day_name");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "sfsf";
     }
     public static String getLastPlanName(int id) {
         try (Connection conn = DbUtil.getConnection();
-             PreparedStatement preparedStatement = conn.prepareStatement(lastPlanName)
+             PreparedStatement preparedStatement = conn.prepareStatement(lastPlanNameQUERY)
         ) {
             preparedStatement.setInt(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -203,8 +225,9 @@ public class PlanDao {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return "qwerty";
+        return "Last Plan Name";
     }
+
 
 
 }
