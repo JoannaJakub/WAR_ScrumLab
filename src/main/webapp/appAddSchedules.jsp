@@ -14,7 +14,7 @@
 </head>
 <body>
 
-<%@ include file="fixed-header.jsp" %>
+<%@ include file="fixed-app_header.jsp" %>
 
 <section class="dashboard-section">
     <div class="row dashboard-nowrap">
