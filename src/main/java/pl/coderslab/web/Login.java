@@ -20,8 +20,7 @@ public class Login extends HttpServlet {
                     .forward(request, response);
         }
         if (sess.getAttribute("enable").equals(1)) {
-            getServletContext().getRequestDispatcher("/app/dashboard")
-                    .forward(request, response);
+            response.sendRedirect("/app/dashboard");
         } else {
             getServletContext().getRequestDispatcher("/login.jsp")
                     .forward(request, response);
@@ -48,10 +47,9 @@ public class Login extends HttpServlet {
             getServletContext().getRequestDispatcher("/login-failed.jsp")
                     .forward(request, response);
         } else {
-            getServletContext().getRequestDispatcher("/app/dashboard")
-                    .forward(request, response);
-            sess.setAttribute("enable" , admin.getEnable());
-            sess.setAttribute("id" , admin.getId());
+            response.sendRedirect("/app/dashboard");
+            sess.setAttribute("enable", admin.getEnable());
+            sess.setAttribute("id", admin.getId());
         }
     }
 }
