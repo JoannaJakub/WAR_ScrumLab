@@ -17,6 +17,7 @@ public class RecipeDao {
     private static final String DELETE_RECIPE_QUERY = "DELETE FROM scrumlab.recipe where id = ?;";
     private static final String FIND_ALL_RECIPES_QUERY = "SELECT * FROM scrumlab.recipe;";
     private static final String READ_RECIPE_QUERY = "SELECT * from scrumlab.recipe where id = ?;";
+    private static final String READ_RECIPES_BY_ADMINID_QUERY = "SELECT * from scrumlab.recipe where admin_id = ?;";
     private static final String UPDATE_RECIPE_QUERY = "UPDATE	scrumlab.recipe SET " +
             "name = ? , ingredients = ?, description = ?, created = ?, updated = ?, " +
             "preparation_time = ?, preparation = ?, admin_id = ? " + "WHERE	id = ?;";
@@ -49,7 +50,7 @@ public class RecipeDao {
 
     }
 
-    public int countRecipes(Integer admin_Id) {
+    public static int countRecipes(Integer admin_Id) {
         int count = 0;
         try (Connection connection = DbUtil.getConnection();
              PreparedStatement statement = connection.prepareStatement(COUNT_RECIPES_BY_ID_QUERY)
@@ -86,6 +87,34 @@ public class RecipeDao {
             }
 
         } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return recipeList;
+
+    }
+
+    public List<Recipe> readRecipesByAdminId(Integer adminId) {
+        List<Recipe> recipeList = new ArrayList<>();
+        try (Connection connection = DbUtil.getConnection();
+             PreparedStatement statement = connection.prepareStatement(READ_RECIPES_BY_ADMINID_QUERY)
+        ) {
+            statement.setInt(1, adminId);
+            try (ResultSet resultSet = statement.executeQuery()) {
+                while (resultSet.next()) {
+                    Recipe recipeToAdd = new Recipe();
+                    recipeToAdd.setId(resultSet.getInt("id"));
+                    recipeToAdd.setName(resultSet.getString("name"));
+                    recipeToAdd.setIngredients(resultSet.getString("ingredients"));
+                    recipeToAdd.setDescription(resultSet.getString("description"));
+                    recipeToAdd.setCreated(resultSet.getString("created"));
+                    recipeToAdd.setUpdated(resultSet.getString("updated"));
+                    recipeToAdd.setPreparation_time(resultSet.getInt("preparation_time"));
+                    recipeToAdd.setPreparation(resultSet.getString("preparation"));
+                    recipeToAdd.setAdmin_id(resultSet.getInt("admin_id"));
+                    recipeList.add(recipeToAdd);
+                }
+            }
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return recipeList;
@@ -160,3 +189,4 @@ public class RecipeDao {
     }
 
 }
+
