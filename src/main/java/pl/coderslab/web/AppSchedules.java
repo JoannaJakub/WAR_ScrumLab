@@ -9,7 +9,7 @@ import java.io.IOException;
 public class AppSchedules extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        getServletContext().getRequestDispatcher("/appSchedules.jsp")
+        getServletContext().getRequestDispatcher("/appSchedule.jsp")
                 .forward(request, response);
     }
 
