@@ -67,11 +67,9 @@
                             </label>
                             <div class="col-sm-4">
                                 <select class="form-control" id="recipie">
-                                    <option>Zapiekanka z ziemniakami i brukselką</option>
-                                    <option>2</option>
-                                    <option>3</option>
-                                    <option>4</option>
-                                    <option>5</option>
+                                    <c:forEach items="${recipies}" var="recipe">
+                                        <option>${recipe.name}</option>
+                                    </c:forEach>
                                 </select>
                             </div>
                         </div>

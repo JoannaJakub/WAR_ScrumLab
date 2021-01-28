@@ -17,6 +17,7 @@ public class RecipeDao {
     private static final String DELETE_RECIPE_QUERY = "DELETE FROM scrumlab.recipe where id = ?;";
     private static final String FIND_ALL_RECIPES_QUERY = "SELECT * FROM scrumlab.recipe;";
     private static final String READ_RECIPE_QUERY = "SELECT * from scrumlab.recipe where id = ?;";
+    private static final String READ_RECIPE_QUERY2 = "SELECT * from scrumlab.recipe where admin_id = ?;";
     private static final String READ_RECIPES_BY_ADMINID_QUERY = "SELECT * from scrumlab.recipe where admin_id = ?;";
     private static final String UPDATE_RECIPE_QUERY = "UPDATE	scrumlab.recipe SET " +
             "name = ? , ingredients = ?, description = ?, created = ?, updated = ?, " +
@@ -191,6 +192,32 @@ public class RecipeDao {
         }
 
     }
+    public List<Recipe> read2(int id) {
+        List<Recipe> recipeList = new ArrayList<>();
+        try (Connection connection = DbUtil.getConnection();
+             PreparedStatement statement = connection.prepareStatement(READ_RECIPE_QUERY2)
+        ) {
+            statement.setInt(1, id);
+            try (ResultSet resultSet = statement.executeQuery()) {
+                while (resultSet.next()) {
+                    Recipe recipe = new Recipe();
+                    recipe.setId(resultSet.getInt("id"));
+                    recipe.setName(resultSet.getString("name"));
+                    recipe.setIngredients(resultSet.getString("ingredients"));
+                    recipe.setDescription(resultSet.getString("description"));
+                    recipe.setCreated(resultSet.getString("created"));
+                    recipe.setUpdated(resultSet.getString("updated"));
+                    recipe.setPreparation_time(resultSet.getInt("preparation_time"));
+                    recipe.setPreparation(resultSet.getString("preparation"));
+                    recipe.setAdmin_id(resultSet.getInt("admin_id"));
+                    recipeList.add(recipe);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return recipeList;
 
+    }
 }
 

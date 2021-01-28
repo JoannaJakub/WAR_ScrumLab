@@ -15,6 +15,7 @@ import java.util.*;
 public class PlanDao {
     //
     private static final String readQUERY = "SELECT * from scrumlab.plan where id = ?;";
+    private static final String read2QUERY = "SELECT * from scrumlab.plan where admin_id = ?;";
     private static final String findAllQUERY = "SELECT * FROM scrumlab.plan;";
     private static final String createQUERY = "INSERT INTO scrumlab.plan(id, name, description, created, admin_id) VALUES (?,?,?,?,?);";
     private static final String deleteQUERY = "DELETE FROM scrumlab.plan where id = ?;";
@@ -210,7 +211,7 @@ public class PlanDao {
     public List<Plan> read2(int id) {
         List<Plan> planList = new ArrayList<>();
         try (Connection connection = DbUtil.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(readQUERY)) {
+             PreparedStatement preparedStatement = connection.prepareStatement(read2QUERY)) {
             preparedStatement.setInt(1, id);
           try (ResultSet resultSet = preparedStatement.executeQuery()) {
               while (resultSet.next()) {
