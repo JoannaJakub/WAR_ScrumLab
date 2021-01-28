@@ -50,18 +50,22 @@ public class RecipeDao {
     }
 
     public static int countRecipes(Integer admin_Id) {
-        int count = 0;
+        int counter = 0;
         try (Connection connection = DbUtil.getConnection();
-             PreparedStatement statement = connection.prepareStatement(COUNT_RECIPES_BY_ID_QUERY)
-        ) {
+             PreparedStatement statement = connection.prepareStatement(COUNT_RECIPES_BY_ID_QUERY)) {
             statement.setInt(1, admin_Id);
+
+
             try (ResultSet resultSet = statement.executeQuery()) {
-                count = resultSet.getInt("COUNT(admin_id)");
+                while (resultSet.next()) {
+                    counter = resultSet.getInt("count(admin_id)");
+                }
             }
-        } catch (Exception e) {
+
+        } catch (SQLException e) {
             e.printStackTrace();
         }
-        return count;
+        return counter;
 
     }
 

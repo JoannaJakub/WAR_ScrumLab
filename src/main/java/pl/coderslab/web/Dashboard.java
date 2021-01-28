@@ -21,13 +21,15 @@ public class Dashboard extends HttpServlet {
 
         int userId = (int) sess.getAttribute("id");
         sess.setAttribute("countRecipes", RecipeDao.countRecipes(userId));
+        System.out.println(RecipeDao.countRecipes(userId));
         sess.setAttribute("countPlansQuery", PlanDao.countPlans(userId));
         sess.setAttribute("recentPlanName", PlanDao.getLastPlanName(userId));
-        System.out.println(PlanDao.getLastPlanName((userId)));
-//
+
+        //
 //        sess.setAttribute("day_name", lastPlanQUERY(userId));
 //        System.out.println(PlanDao.countPlans(userId));
 
+/*
 
 
         List<LastPlan> recentPlan = PlanDao.lastPlanQUERY(userId);
@@ -40,6 +42,7 @@ public class Dashboard extends HttpServlet {
         sess.setAttribute("recentPlan", recentPlan);
 
         System.out.print( PlanDao.lastPlanQUERY(userId));
+*/
 
         getServletContext().getRequestDispatcher("/dashboard.jsp").forward(request, response);
 
