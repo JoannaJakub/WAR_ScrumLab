@@ -2,6 +2,7 @@ package pl.coderslab.dao;
 
 import pl.coderslab.exception.NotFoundException;
 
+import pl.coderslab.model.LastPlan;
 import pl.coderslab.model.Plan;
 import pl.coderslab.utils.DbUtil;
 
@@ -9,18 +10,24 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class PlanDao {
-
+//
     private static final String readQUERY = "SELECT * from scrumlab.plan where id = ?;";
     private static final String findAllQUERY = "SELECT * FROM scrumlab.plan;";
     private static final String createQUERY = "INSERT INTO scrumlab.plan(id, name, description, created, admin_id) VALUES (?,?,?,?,?);";
     private static final String deleteQUERY = "DELETE FROM scrumlab.plan where id = ?;";
     private static final String updateQUERY = "UPDATE scrumlab.plan SET name = ? , description = ?, created = ?, admin_id = ? WHERE	id = ?;";
     private static final String countPlansQuery = "SELECT count(admin_id) FROM scrumlab.plan WHERE admin_id=?;";
-
+    private static final String lastPlanQUERY = "SELECT day_name.name as day_name, meal_name,  recipe.name as recipe_name, recipe.description as recipe_description" +
+            "    FROM `recipe_plan`" +
+            "    JOIN day_name on day_name.id=day_name_id" +
+            "    JOIN recipe on recipe.id=recipe_id WHERE" +
+            "    recipe_plan.plan_id =  (SELECT MAX(id) from plan WHERE admin_id = ?)" +
+            "    ORDER by day_name.display_order, recipe_plan.display_order";
+    private static final String lastPlanName ="SELECT plan.name AS plan_name FROM plan " +
+            "WHERE id = (SELECT MAX(id) FROM plan WHERE admin_id = ?);";
 
     public Plan read(int id) {
         Plan plan = new Plan();
@@ -129,7 +136,7 @@ public class PlanDao {
 
     }
 
-    public int countPlansQuery(int id) {
+    public static int countPlans(int id) {
         int counter = 0;
         try (Connection connection = DbUtil.getConnection();
              PreparedStatement statement = connection.prepareStatement(countPlansQuery)) {
@@ -138,7 +145,7 @@ public class PlanDao {
 
             try (ResultSet resultSet = statement.executeQuery()) {
                 while (resultSet.next()) {
-                    counter = resultSet.getInt("'count(admin_id)'");
+                    counter = resultSet.getInt("count(admin_id)");
                 }
             }
 
@@ -148,6 +155,57 @@ public class PlanDao {
         return counter;
 
     }
+
+    public static List<LastPlan> lastPlanQUERY(int id) {
+        List<LastPlan> planList = new LinkedList<>();
+        try (Connection connection = DbUtil.getConnection();
+             PreparedStatement statement = connection.prepareStatement(lastPlanQUERY)
+        ) {
+            statement.setInt(1, id);
+            try (ResultSet resultSet = statement.executeQuery()) {
+                while (resultSet.next()) {
+                    LastPlan lastPlan = new LastPlan();
+                    lastPlan.setDayName(resultSet.getString("day_name"));
+                    lastPlan.setMealName(resultSet.getString("meal_name"));
+                    lastPlan.setRecipeName(resultSet.getString("recipe_name"));
+                    lastPlan.setRecipeDescription(resultSet.getString("recipe_description"));
+                    lastPlan.setRecipeId(resultSet.getInt("recipe_id"));
+                    planList.add(lastPlan);
+
+                }
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        HashMap<String,List<LastPlan>> items = new HashMap<>();
+        planList.forEach(it->{
+            List<LastPlan> list = items.get(it.getDayName());
+            if(list==null){
+                list = new LinkedList();
+            }
+            list.add(it);
+            items.put(it.getDayName(),list);
+        });
+
+        return planList;
+
+    }
+    public static String getLastPlanName(int id) {
+        try (Connection conn = DbUtil.getConnection();
+             PreparedStatement preparedStatement = conn.prepareStatement(lastPlanName)
+        ) {
+            preparedStatement.setInt(1, id);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                return resultSet.getString("plan_name");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "qwerty";
+    }
+
 
 }
 

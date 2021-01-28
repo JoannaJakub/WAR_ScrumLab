@@ -8,7 +8,6 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 @WebFilter("/app/*")
-
 public class AppFiltr implements Filter {
     public void init(FilterConfig config) throws ServletException {
     }
@@ -16,7 +15,7 @@ public class AppFiltr implements Filter {
     public void destroy() {
     }
 
-@Override
+    @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws ServletException, IOException {
 
         request.setCharacterEncoding("UTF-8");
@@ -32,7 +31,8 @@ public class AppFiltr implements Filter {
         if (sess.getAttribute("enable") == null) {
             servlet.sendRedirect("/login.jsp");
         } else {
-            chain.doFilter(request, response);
+            chain.doFilter(request,response);
         }
+
     }
 }
