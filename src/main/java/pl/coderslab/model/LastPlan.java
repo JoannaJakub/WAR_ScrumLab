@@ -1,17 +1,18 @@
-package pl.coderslab.dao;
+package pl.coderslab.model;
 
 public class LastPlan {
     private String dayName;
     private String mealName;
     private String recipeName;
     private String recipeDescription;
-    private String recipeId;
+    private int recipeId;
 
     public LastPlan(){
 
     }
 
-    public LastPlan(String dayName, String mealName, String recipeName, String recipeDescription, String recipeId) {
+
+    public LastPlan(String dayName, String mealName, String recipeName, String recipeDescription, int recipeId) {
         this.dayName = dayName;
         this.mealName = mealName;
         this.recipeName = recipeName;
@@ -35,7 +36,7 @@ public class LastPlan {
         return recipeDescription;
     }
 
-    public String getRecipeId() {
+    public int getRecipeId() {
         return recipeId;
     }
 
@@ -55,7 +56,7 @@ public class LastPlan {
         this.recipeDescription = recipeDescription;
     }
 
-    public void setRecipeId(String recipeId) {
+    public void setRecipeId(int recipeId) {
         this.recipeId = recipeId;
     }
 

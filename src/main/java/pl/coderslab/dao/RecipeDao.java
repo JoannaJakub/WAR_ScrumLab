@@ -56,7 +56,7 @@ public class RecipeDao {
         ) {
             statement.setInt(1, admin_Id);
             try (ResultSet resultSet = statement.executeQuery()) {
-                count = resultSet.getInt("`COUNT(admin_id)`");
+                count = resultSet.getInt("COUNT(admin_id)");
             }
         } catch (Exception e) {
             e.printStackTrace();
