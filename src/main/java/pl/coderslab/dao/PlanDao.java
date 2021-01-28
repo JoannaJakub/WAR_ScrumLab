@@ -13,7 +13,7 @@ import java.sql.SQLException;
 import java.util.*;
 
 public class PlanDao {
-
+//
     private static final String readQUERY = "SELECT * from scrumlab.plan where id = ?;";
     private static final String findAllQUERY = "SELECT * FROM scrumlab.plan;";
     private static final String createQUERY = "INSERT INTO scrumlab.plan(id, name, description, created, admin_id) VALUES (?,?,?,?,?);";
