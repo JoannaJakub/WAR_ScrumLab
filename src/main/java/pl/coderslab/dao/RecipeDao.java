@@ -24,7 +24,7 @@ public class RecipeDao {
 
     private static final String COUNT_RECIPES_BY_ID_QUERY = "SELECT COUNT(admin_id) FROM scrumlab.recipe WHERE admin_id = ?;";
 
-    public Recipe readRecipeById(Integer recipeId) {
+    public Recipe read(Integer recipeId) {
         Recipe recipe = new Recipe();
         try (Connection connection = DbUtil.getConnection();
              PreparedStatement statement = connection.prepareStatement(READ_RECIPE_QUERY)
@@ -50,35 +50,7 @@ public class RecipeDao {
 
     }
 
-     public List<Recipe> readRecipesByAdminId(Integer adminId) {
-         List<Recipe> recipeList = new ArrayList<>();
-        try (Connection connection = DbUtil.getConnection();
-             PreparedStatement statement = connection.prepareStatement(READ_RECIPES_BY_ADMINID_QUERY)
-        ) {
-            statement.setInt(1, adminId);
-            try (ResultSet resultSet = statement.executeQuery()) {
-                while (resultSet.next()) {
-                    Recipe recipeToAdd = new Recipe();
-                    recipeToAdd.setId(resultSet.getInt("id"));
-                    recipeToAdd.setName(resultSet.getString("name"));
-                    recipeToAdd.setIngredients(resultSet.getString("ingredients"));
-                    recipeToAdd.setDescription(resultSet.getString("description"));
-                    recipeToAdd.setCreated(resultSet.getString("created"));
-                    recipeToAdd.setUpdated(resultSet.getString("updated"));
-                    recipeToAdd.setPreparation_time(resultSet.getInt("preparation_time"));
-                    recipeToAdd.setPreparation(resultSet.getString("preparation"));
-                    recipeToAdd.setAdmin_id(resultSet.getInt("admin_id"));
-                    recipeList.add(recipeToAdd);
-                }
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return recipeList;
-
-    }
-
-    public int countRecipes(Integer admin_Id) {
+    public static int countRecipes(Integer admin_Id) {
         int count = 0;
         try (Connection connection = DbUtil.getConnection();
              PreparedStatement statement = connection.prepareStatement(COUNT_RECIPES_BY_ID_QUERY)
@@ -115,6 +87,34 @@ public class RecipeDao {
             }
 
         } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return recipeList;
+
+    }
+
+    public List<Recipe> readRecipesByAdminId(Integer adminId) {
+        List<Recipe> recipeList = new ArrayList<>();
+        try (Connection connection = DbUtil.getConnection();
+             PreparedStatement statement = connection.prepareStatement(READ_RECIPES_BY_ADMINID_QUERY)
+        ) {
+            statement.setInt(1, adminId);
+            try (ResultSet resultSet = statement.executeQuery()) {
+                while (resultSet.next()) {
+                    Recipe recipeToAdd = new Recipe();
+                    recipeToAdd.setId(resultSet.getInt("id"));
+                    recipeToAdd.setName(resultSet.getString("name"));
+                    recipeToAdd.setIngredients(resultSet.getString("ingredients"));
+                    recipeToAdd.setDescription(resultSet.getString("description"));
+                    recipeToAdd.setCreated(resultSet.getString("created"));
+                    recipeToAdd.setUpdated(resultSet.getString("updated"));
+                    recipeToAdd.setPreparation_time(resultSet.getInt("preparation_time"));
+                    recipeToAdd.setPreparation(resultSet.getString("preparation"));
+                    recipeToAdd.setAdmin_id(resultSet.getInt("admin_id"));
+                    recipeList.add(recipeToAdd);
+                }
+            }
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return recipeList;
@@ -189,3 +189,4 @@ public class RecipeDao {
     }
 
 }
+
