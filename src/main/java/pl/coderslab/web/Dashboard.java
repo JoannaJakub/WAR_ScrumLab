@@ -1,62 +1,60 @@
 package pl.coderslab.web;
 
+import pl.coderslab.dao.AdminDao;
+import pl.coderslab.dao.LastPlan;
 import pl.coderslab.dao.PlanDao;
 import pl.coderslab.dao.RecipeDao;
-import pl.coderslab.model.LastPlan;
+import pl.coderslab.model.Admin;
+import pl.coderslab.model.Plan;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+
 
 @WebServlet("/app/dashboard")
 public class Dashboard extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        response.setCharacterEncoding("UTF-8");
+
+
+        request.setCharacterEncoding("UTF-8");
         response.setContentType("text/html");
+        response.setCharacterEncoding("UTF-8");
+
         HttpSession sess = request.getSession();
 
 
         int userId = (int) sess.getAttribute("id");
-        sess.setAttribute("countRecipes", RecipeDao.countRecipes(userId));
-        System.out.println(RecipeDao.countRecipes(userId));
-        sess.setAttribute("countPlansQuery", PlanDao.countPlans(userId));
-        sess.setAttribute("recentPlanName", PlanDao.getLastPlanName(userId));
-
-        //
-//        sess.setAttribute("day_name", lastPlanQUERY(userId));
-//        System.out.println(PlanDao.countPlans(userId));
-
-/*
+        //   sess.setAttribute("countRecipes", RecipeDao.countRecipes(userId));
 
 
-        List<LastPlan> recentPlan = PlanDao.lastPlanQUERY(userId);
+        //   sess.setAttribute("countPlansQuery", PlanDao.countPlans(admin.getId()));
 
-      Set<String> weekdaysInPlan = new HashSet<>();
-        for (LastPlan LastPlan : recentPlan) {
-            weekdaysInPlan.add(LastPlan.getDayName());
-        }
-        sess.setAttribute("weekdaysInPlan", weekdaysInPlan);
-        sess.setAttribute("recentPlan", recentPlan);
 
-        System.out.print( PlanDao.lastPlanQUERY(userId));
+        System.out.println(PlanDao.countPlans((userId)));
+
+
+        getServletContext().getRequestDispatcher("/appDashboard.jsp").forward(request, response);
+
+      /*  if (admin == null) {
+            getServletContext().getRequestDispatcher("/login.jsp").forward(request, response);
+        } else {
+          //  request.setAttribute("countRecipes", RecipeDao.countRecipes(admin.getId()));
+
 */
 
-        getServletContext().getRequestDispatcher("/dashboard.jsp").forward(request, response);
+        //       HttpSession sess = request.getSession();
+/*
+        int userId = ((Admin) sess.getAttribute("user")).getId();
+        request.getSession().setAttribute("countRecipes", RecipeDao.countRecipes(userId));
+        request.getSession().setAttribute("countPlansQuery", PlanDao.countPlansQuery(userId));
+
+        getServletContext().getRequestDispatcher("/appDashboard.jsp").forward(request, response);
+*/
 
     }
 }
-        /*sess.setAttribute("day", days);
-        sess.setAttribute("recentPlan", recentPlan);
-*/
-
-
-   /* Map<String, ArrayList> recipePlanMap = planDao.finRecentUserPlan(id);
-    String planName = (String) recipePlanMap.keySet().stream().toArray()[0];
-        req.setAttribute("nameOfPlan", planName);
-                List<RecipePlan> recipePlans = recipePlanMap.get(planName);
-
-        req.setAttribute("recipePlans", recipePlans);
-*/

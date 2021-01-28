@@ -30,7 +30,9 @@ public class AppFiltr implements Filter {
 
         if (sess.getAttribute("enable") == null) {
             servlet.sendRedirect("/login.jsp");
+        } else {
+            chain.doFilter(request,response);
         }
-        chain.doFilter(request,response);
+
     }
 }
