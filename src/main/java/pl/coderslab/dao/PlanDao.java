@@ -13,7 +13,7 @@ import java.sql.SQLException;
 import java.util.*;
 
 public class PlanDao {
-//
+    //
     private static final String readQUERY = "SELECT * from scrumlab.plan where id = ?;";
     private static final String findAllQUERY = "SELECT * FROM scrumlab.plan;";
     private static final String createQUERY = "INSERT INTO scrumlab.plan(id, name, description, created, admin_id) VALUES (?,?,?,?,?);";
@@ -26,7 +26,7 @@ public class PlanDao {
             "    JOIN recipe on recipe.id=recipe_id WHERE" +
             "    recipe_plan.plan_id =  (SELECT MAX(id) from plan WHERE admin_id = ?)" +
             "    ORDER by day_name.display_order, recipe_plan.display_order";
-    private static final String lastPlanName ="SELECT plan.name AS plan_name FROM plan " +
+    private static final String lastPlanName = "SELECT plan.name AS plan_name FROM plan " +
             "WHERE id = (SELECT MAX(id) FROM plan WHERE admin_id = ?);";
 
     public Plan read(int id) {
@@ -178,19 +178,20 @@ public class PlanDao {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        HashMap<String,List<LastPlan>> items = new HashMap<>();
-        planList.forEach(it->{
+        HashMap<String, List<LastPlan>> items = new HashMap<>();
+        planList.forEach(it -> {
             List<LastPlan> list = items.get(it.getDayName());
-            if(list==null){
+            if (list == null) {
                 list = new LinkedList();
             }
             list.add(it);
-            items.put(it.getDayName(),list);
+            items.put(it.getDayName(), list);
         });
 
         return planList;
 
     }
+
     public static String getLastPlanName(int id) {
         try (Connection conn = DbUtil.getConnection();
              PreparedStatement preparedStatement = conn.prepareStatement(lastPlanName)
@@ -206,8 +207,29 @@ public class PlanDao {
         return "qwerty";
     }
 
-
+    public List<Plan> read2(int id) {
+        List<Plan> planList = new ArrayList<>();
+        try (Connection connection = DbUtil.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(readQUERY)) {
+            preparedStatement.setInt(1, id);
+          try (ResultSet resultSet = preparedStatement.executeQuery()) {
+              while (resultSet.next()) {
+                  Plan planAdd = new Plan();
+                  planAdd.setId(resultSet.getInt("id"));
+                  planAdd.setName(resultSet.getString("name"));
+                  planAdd.setDescription(resultSet.getString("description"));
+                  planAdd.setCreated(resultSet.getString("created"));
+                  planAdd.setAdminId(resultSet.getInt("admin_id"));
+                  planList.add(planAdd);
+              }
+          }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return planList;
+    }
 }
+
 
 
 

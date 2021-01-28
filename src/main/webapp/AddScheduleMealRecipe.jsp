@@ -39,8 +39,8 @@
                             </label>
                             <div class="col-sm-3">
                                 <select class="form-control" id="choosePlan">
-                                    <c:forEach items="${days}" var="day">
-                                        <option>${day.name}</option>
+                                    <c:forEach items="${plans}" var="plan">
+                                        <option>${plan.name}</option>
                                     </c:forEach>
                                 </select>
                             </div>
@@ -81,11 +81,9 @@
                             </label>
                             <div class="col-sm-2">
                                 <select class="form-control" id="day">
-                                    <option>poniedziałek</option>
-                                    <option>2</option>
-                                    <option>3</option>
-                                    <option>4</option>
-                                    <option>5</option>
+                                        <c:forEach items="${days}" var="day">
+                                            <option>${day.name}</option>
+                                        </c:forEach>
                                 </select>
                             </div>
                         </div>
