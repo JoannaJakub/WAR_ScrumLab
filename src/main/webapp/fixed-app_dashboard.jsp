@@ -3,19 +3,19 @@
 
 <ul class="nav flex-column long-bg">
     <li class="nav-item">
-        <a class="nav-link" href="/app/dashboard">
+        <a class="nav-link" href="<c:url value="/app/dashboard"/>">
             <span>Pulpit</span>
             <i class="fas fa-angle-right"></i>
         </a>
     </li>
     <li class="nav-item">
-        <a class="nav-link" href="/appRecipes">
+        <a class="nav-link" href="<c:url value="/app/recipe"/>">
             <span>Przepisy</span>
             <i class="fas fa-angle-right"></i>
         </a>
     </li>
     <li class="nav-item">
-        <a class="nav-link" href="/appSchedules">
+<%--        <a class="nav-link" href="<c:url value="/app/plan"/>">--%>
             <span>Plany</span>
             <i class="fas fa-angle-right"></i>
         </a>

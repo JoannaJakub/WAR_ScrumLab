@@ -7,8 +7,8 @@ import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
 
-@WebServlet("/app/recipe/list")
-public class AppRecipeList extends HttpServlet {
+@WebServlet("/app/recipe")
+public class AppRecipe extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
@@ -20,7 +20,7 @@ public class AppRecipeList extends HttpServlet {
 
         RecipeDao recipeDao = new RecipeDao();
         sess.setAttribute("recipeList", recipeDao.readRecipesByAdminId(adminId));
-        getServletContext().getRequestDispatcher("/appRecipeList.jsp")
+        getServletContext().getRequestDispatcher("appRecipe.jsp")
                 .forward(request, response);
 
     }
