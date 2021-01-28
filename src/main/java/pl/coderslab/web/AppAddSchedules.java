@@ -17,7 +17,7 @@ import java.util.Calendar;
 public class AppAddSchedules extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         setUpPlan(request, response);
-        response.sendRedirect(request.getContextPath() + "/app/plan/list");
+        response.sendRedirect(request.getContextPath() + "/app/plan");
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
