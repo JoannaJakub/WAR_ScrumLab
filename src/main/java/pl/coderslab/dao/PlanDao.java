@@ -13,7 +13,7 @@ import java.sql.SQLException;
 import java.util.*;
 
 public class PlanDao {
-//
+    //
     private static final String readQUERY = "SELECT * from scrumlab.plan where id = ?;";
     private static final String findAllQUERY = "SELECT * FROM scrumlab.plan;";
     private static final String createQUERY = "INSERT INTO scrumlab.plan(id, name, description, created, admin_id) VALUES (?,?,?,?,?);";
@@ -26,8 +26,9 @@ public class PlanDao {
             "    JOIN recipe on recipe.id=recipe_id WHERE" +
             "    recipe_plan.plan_id =  (SELECT MAX(id) from plan WHERE admin_id = ?)" +
             "    ORDER by day_name.display_order, recipe_plan.display_order";
-    private static final String lastPlanName ="SELECT plan.name AS plan_name FROM plan " +
+    private static final String lastPlanName = "SELECT plan.name AS plan_name FROM plan " +
             "WHERE id = (SELECT MAX(id) FROM plan WHERE admin_id = ?);";
+    private static final String planListQUERY = "SELECT plan.id, plan.name,plan.description from scrumlab.plan where plan.admin_id = ?";
 
     public Plan read(int id) {
         Plan plan = new Plan();
@@ -178,19 +179,20 @@ public class PlanDao {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        HashMap<String,List<LastPlan>> items = new HashMap<>();
-        planList.forEach(it->{
+        HashMap<String, List<LastPlan>> items = new HashMap<>();
+        planList.forEach(it -> {
             List<LastPlan> list = items.get(it.getDayName());
-            if(list==null){
+            if (list == null) {
                 list = new LinkedList();
             }
             list.add(it);
-            items.put(it.getDayName(),list);
+            items.put(it.getDayName(), list);
         });
 
         return planList;
 
     }
+
     public static String getLastPlanName(int id) {
         try (Connection conn = DbUtil.getConnection();
              PreparedStatement preparedStatement = conn.prepareStatement(lastPlanName)
@@ -206,7 +208,38 @@ public class PlanDao {
         return "qwerty";
     }
 
+    public static List<Plan> planList(int id) {
 
+        List<Plan> planList = new ArrayList<>();
+        List<Plan> reverseList = new ArrayList<>();
+        try (Connection connection = DbUtil.getConnection();
+             PreparedStatement statement = connection.prepareStatement(planListQUERY)) {
+            statement.setInt(1, id);
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                Plan planAdd = new Plan();
+                planAdd.setId(resultSet.getInt("id"));
+                planAdd.setName(resultSet.getString("name"));
+                planAdd.setDescription(resultSet.getString("description"));
+                planList.add(planAdd);
+            }
+
+            for (int i = planList.size() - 1; i >= 0; i--) {
+                if (i <= 1) {
+                    reverseList.add(planList.get(i));
+                } else {
+                    reverseList.add(planList.get(i - 1));
+                }
+
+            }
+
+
+        } catch (SQLException e) {
+            return null;
+        }
+        return reverseList;
+
+    }
 }
 
 

@@ -20,7 +20,7 @@ public class AppRecipe extends HttpServlet {
 
         RecipeDao recipeDao = new RecipeDao();
         sess.setAttribute("recipeList", recipeDao.readRecipesByAdminId(adminId));
-        getServletContext().getRequestDispatcher("appRecipe.jsp")
+        getServletContext().getRequestDispatcher("/appRecipe.jsp")
                 .forward(request, response);
 
     }

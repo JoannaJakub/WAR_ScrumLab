@@ -24,7 +24,7 @@
 
 <section class="dashboard-section">
     <div class="row dashboard-nowrap">
-        <%@ include file="fixed-dashboard.jsp" %>
+        <%@ include file="fixed-app_dashboard.jsp" %>
 
         <div class="m-4 p-3 width-medium text-color-darker">
             <div class="m-4 border-dashed view-height">
