@@ -18,9 +18,9 @@ public class AppFiltr implements Filter {
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws ServletException, IOException {
 
-//        request.setCharacterEncoding("UTF-8");
-//        response.setContentType("text/html");
-//        response.setCharacterEncoding("UTF-8");
+        request.setCharacterEncoding("UTF-8");
+        response.setContentType("text/html");
+        response.setCharacterEncoding("UTF-8");
 
         HttpServletRequest request1 = (HttpServletRequest) request;
 
@@ -31,5 +31,6 @@ public class AppFiltr implements Filter {
         if (sess.getAttribute("enable") == null) {
             servlet.sendRedirect("/login.jsp");
         }
+        chain.doFilter(request,response);
     }
 }
