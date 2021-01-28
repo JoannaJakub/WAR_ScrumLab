@@ -57,9 +57,9 @@
 
                         <div class="row d-flex">
                             <div class="col-5 border-bottom border-3"><h3 class="text-uppercase">Sposób
-                                przygotowania</h3></div>
+                                przygotowania:</h3></div>
                             <div class="col-2"></div>
-                            <div class="col-5 border-bottom border-3"><h3 class="text-uppercase">Składniki</h3></div>
+                            <div class="col-5 border-bottom border-3"><h3 class="text-uppercase">Składniki:</h3></div>
                         </div>
                         <div class="row d-flex">
                             <div class="col-5 p-4">
