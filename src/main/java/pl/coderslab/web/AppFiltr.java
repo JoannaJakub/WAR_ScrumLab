@@ -2,7 +2,6 @@ package pl.coderslab.web;
 
 import javax.servlet.*;
 import javax.servlet.annotation.*;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -19,6 +18,10 @@ public class AppFiltr implements Filter {
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws ServletException, IOException {
 
+//        request.setCharacterEncoding("UTF-8");
+//        response.setContentType("text/html");
+//        response.setCharacterEncoding("UTF-8");
+
         HttpServletRequest request1 = (HttpServletRequest) request;
 
         HttpSession sess = request1.getSession();
@@ -27,8 +30,6 @@ public class AppFiltr implements Filter {
 
         if (sess.getAttribute("enable") == null) {
             servlet.sendRedirect("/login.jsp");
-        } else {
-            servlet.sendRedirect("/dashboard.jsp");
         }
     }
 }
