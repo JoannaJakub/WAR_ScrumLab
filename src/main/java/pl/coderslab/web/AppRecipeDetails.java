@@ -7,20 +7,18 @@ import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
 
-@WebServlet("/app/recipe")
-public class AppRecipe extends HttpServlet {
+@WebServlet("/app/recipe/details")
+public class AppRecipeDetails extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
         response.setCharacterEncoding("UTF-8");
         response.setContentType("text/html");
-
         HttpSession sess = request.getSession();
-        int adminId = (int) sess.getAttribute("id");
+        int recipeId = Integer.parseInt(request.getParameter("id"));
 
         RecipeDao recipeDao = new RecipeDao();
-        sess.setAttribute("recipeList", recipeDao.readRecipesByAdminId(adminId));
-        getServletContext().getRequestDispatcher("/appRecipe.jsp")
+        sess.setAttribute("recipe", recipeDao.read(recipeId));
+        getServletContext().getRequestDispatcher("/appRecipeDetails.jsp")
                 .forward(request, response);
 
     }
