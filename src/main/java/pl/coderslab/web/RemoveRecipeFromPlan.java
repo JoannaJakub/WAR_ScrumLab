@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
-@WebServlet("/app/RemoveRecipeFromPlan")
+@WebServlet("/app/removeRecipeFromPlan")
 public class RemoveRecipeFromPlan extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -27,6 +27,6 @@ public class RemoveRecipeFromPlan extends HttpServlet {
 
         RecipeDao recipeRecipeDao = new RecipeDao();
         recipeRecipeDao.delete(userId);
-        response.sendRedirect("/app/scheduleDetails");
+        response.sendRedirect("/app/recipe/details");
     }
 }

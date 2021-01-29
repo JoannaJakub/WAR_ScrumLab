@@ -44,7 +44,7 @@ public class Dashboard extends HttpServlet {
         System.out.print( PlanDao.lastPlanQUERY(userId));
 */
 
-        getServletContext().getRequestDispatcher("/dashboard.jsp").forward(request, response);
+        getServletContext().getRequestDispatcher("/appDashboard.jsp").forward(request, response);
 
     }
 }
