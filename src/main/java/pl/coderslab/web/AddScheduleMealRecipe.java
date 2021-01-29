@@ -24,9 +24,9 @@ public class AddScheduleMealRecipe extends HttpServlet {
         DayNameDao dayNameDao = new DayNameDao();
         List<DayName> dayNames = dayNameDao.findAll();
         PlanDao planDao = new PlanDao();
-        List<Plan> planList = planDao.read2(Integer.parseInt(String.valueOf(sess.getAttribute("id"))));
+        List<Plan> planList = planDao.FindAllFromAdminId(Integer.parseInt(String.valueOf(sess.getAttribute("id"))));
         RecipeDao recipeDao = new RecipeDao();
-        List<Recipe> recipeList = recipeDao.read2(Integer.parseInt(String.valueOf(sess.getAttribute("id"))));
+        List<Recipe> recipeList = recipeDao.FindAllFromAdminId(Integer.parseInt(String.valueOf(sess.getAttribute("id"))));
         request.setAttribute("plans", planList);
         request.setAttribute("days", dayNames);
         request.setAttribute("recipies", recipeList);

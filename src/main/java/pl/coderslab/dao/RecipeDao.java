@@ -192,7 +192,7 @@ public class RecipeDao {
         }
 
     }
-    public List<Recipe> read2(int id) {
+    public List<Recipe> FindAllFromAdminId(int id) {
         List<Recipe> recipeList = new ArrayList<>();
         try (Connection connection = DbUtil.getConnection();
              PreparedStatement statement = connection.prepareStatement(READ_RECIPE_QUERY2)

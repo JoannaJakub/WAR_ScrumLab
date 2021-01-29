@@ -208,7 +208,7 @@ public class PlanDao {
         return "qwerty";
     }
 
-    public List<Plan> read2(int id) {
+    public List<Plan> FindAllFromAdminId(int id) {
         List<Plan> planList = new ArrayList<>();
         try (Connection connection = DbUtil.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(read2QUERY)) {
