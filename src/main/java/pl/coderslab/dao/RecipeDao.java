@@ -17,7 +17,6 @@ public class RecipeDao {
     private static final String DELETE_RECIPE_QUERY = "DELETE FROM scrumlab.recipe where id = ?;";
     private static final String FIND_ALL_RECIPES_QUERY = "SELECT * FROM scrumlab.recipe;";
     private static final String READ_RECIPE_QUERY = "SELECT * from scrumlab.recipe where id = ?;";
-    private static final String READ_RECIPE_QUERY2 = "SELECT * from scrumlab.recipe where admin_id = ?;";
     private static final String READ_RECIPES_BY_ADMINID_QUERY = "SELECT * from scrumlab.recipe where admin_id = ?;";
     private static final String UPDATE_RECIPE_QUERY = "UPDATE	scrumlab.recipe SET " +
             "name = ? , ingredients = ?, description = ?, created = ?, updated = ?, " +
@@ -195,7 +194,7 @@ public class RecipeDao {
     public List<Recipe> FindAllFromAdminId(int id) {
         List<Recipe> recipeList = new ArrayList<>();
         try (Connection connection = DbUtil.getConnection();
-             PreparedStatement statement = connection.prepareStatement(READ_RECIPE_QUERY2)
+             PreparedStatement statement = connection.prepareStatement(READ_RECIPES_BY_ADMINID_QUERY)
         ) {
             statement.setInt(1, id);
             try (ResultSet resultSet = statement.executeQuery()) {
