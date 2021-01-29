@@ -3,6 +3,7 @@ package pl.coderslab.web;
 import pl.coderslab.dao.PlanDao;
 import pl.coderslab.dao.RecipeDao;
 import pl.coderslab.model.LastPlan;
+import pl.coderslab.model.Recipe;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
@@ -24,6 +25,12 @@ public class Dashboard extends HttpServlet {
         System.out.println(RecipeDao.countRecipes(userId));
         sess.setAttribute("countPlansQuery", PlanDao.countPlans(userId));
         sess.setAttribute("recentPlanName", PlanDao.getLastPlanName(userId));
+        sess.setAttribute("day_name", PlanDao.getLastPlanDay(userId));
+
+        List<LastPlan> lastPlan = PlanDao.lastPlan(userId);
+        request.setAttribute("recipes", lastPlan);
+        getServletContext().getRequestDispatcher("/appDashboard.jsp").forward(request, response);
+
 
         //
 //        sess.setAttribute("day_name", lastPlanQUERY(userId));

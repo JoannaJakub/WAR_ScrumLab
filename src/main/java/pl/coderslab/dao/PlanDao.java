@@ -164,23 +164,20 @@ public class PlanDao {
 
     }
 
-    public static List<LastPlan> lastPlanQUERY(int id) {
-        List<LastPlan> planDetails = new LinkedList<>();
-        try (Connection conn = DbUtil.getConnection();
-             PreparedStatement preparedStatement = conn.prepareStatement(lastPlanQUERY)
-        ) {
-            preparedStatement.setInt(1, id);
-            ResultSet resultSet = preparedStatement.executeQuery();
+    public static List<LastPlan> lastPlan(int id) {
+        List<LastPlan> planDetails = new ArrayList<>();
+        try (Connection connection = DbUtil.getConnection();
+             PreparedStatement statement = connection.prepareStatement(lastPlanQUERY);
+             ResultSet resultSet = statement.executeQuery()) {
             while (resultSet.next()) {
-                LastPlan tempPlanDetails = new LastPlan(
-                        resultSet.getString("day_name"),
-                        resultSet.getString("meal_name"),
-                        resultSet.getString("recipe_name"),
-                        resultSet.getString("recipe_description"),
-                        resultSet.getInt("recipe_id")
-                );
+                LastPlan tempPlanDetails = new LastPlan();
+                tempPlanDetails.setDayName(resultSet.getString("day_name"));
+                tempPlanDetails.setMealName(resultSet.getString("meal_name"));
+                tempPlanDetails.setRecipeName(resultSet.getString("recipe_name"));
+                tempPlanDetails.setRecipeDescription(resultSet.getString("recipe_description"));
+                tempPlanDetails.setRecipeId(resultSet.getInt("recipe_id"));
                 planDetails.add(tempPlanDetails);
-                System.out.println(tempPlanDetails);
+
             }
         } catch (Exception e) {
             e.printStackTrace();
