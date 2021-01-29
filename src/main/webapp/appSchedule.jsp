@@ -55,7 +55,7 @@
                                         <a href="<c:url value="/app/removePlan"/>" class="btn btn-danger rounded-0 text-light m-1">Usuń</a>
                                         <a href="<c:url value="/app/recipe/plan/add?plan_id=${plan.id}"/>"
                                            class="btn btn-info rounded-0 text-light m-1">Szczegóły</a>
-                                        <a href="<c:url value="/app/plan/edit?plan_id=${plan.id}"/>"
+                                        <a href="/app-edit-schedules.html"
                                            class="btn btn-warning rounded-0 text-light m-1">Edytuj</a>
                                     </td>
                                 </tr>

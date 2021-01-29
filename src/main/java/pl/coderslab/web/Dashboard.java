@@ -29,7 +29,7 @@ public class Dashboard extends HttpServlet {
 
 //        List<LastPlan> lastPlan = PlanDao.lastPlan(userId);
 //        request.setAttribute("recipes", lastPlan);
-//        getServletContext().getRequestDispatcher("/appDashboard.jsp").forward(request, response);
+        getServletContext().getRequestDispatcher("/appDashboard.jsp").forward(request, response);
 
 
         //

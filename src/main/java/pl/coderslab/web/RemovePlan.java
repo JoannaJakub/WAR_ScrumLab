@@ -19,12 +19,8 @@ public class RemovePlan extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-        HttpSession sess = request.getSession();
-        int userId = (int) sess.getAttribute("id");
-
         PlanDao planPlanDao = new PlanDao();
-        planPlanDao.delete(userId);
+        planPlanDao.delete(Integer.parseInt(request.getParameter("id")));
         response.sendRedirect("/app/plan");
 
     }

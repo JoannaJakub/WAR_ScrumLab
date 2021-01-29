@@ -116,6 +116,7 @@ public class PlanDao {
     public void delete(int id) {
         try (Connection connection = DbUtil.getConnection();
              PreparedStatement statement = connection.prepareStatement(deleteQUERY)) {
+
             statement.setInt(1, id);
             statement.executeUpdate();
 
@@ -183,19 +184,19 @@ public class PlanDao {
 //            e.printStackTrace();
 //        }
 //        return planDetails;
-
-       /* HashMap<String,List<LastPlan>> items = new HashMap<>();
-        planList.forEach(it->{
-            List<LastPlan> list = items.get(it.getDayName());
-            if(list==null){
-                list = new LinkedList();
-            }
-            list.add(it);
-            items.put(it.getDayName(),list);
-        });
-*/
-      //  return planDetails;
-
+//
+//       /* HashMap<String,List<LastPlan>> items = new HashMap<>();
+//        planList.forEach(it->{
+//            List<LastPlan> list = items.get(it.getDayName());
+//            if(list==null){
+//                list = new LinkedList();
+//            }
+//            list.add(it);
+//            items.put(it.getDayName(),list);
+//        });
+//*/
+//      //  return planDetails;
+//
 //
 //    }
     public static String getLastPlanDay(int id) {
@@ -281,20 +282,7 @@ public class PlanDao {
         }
         return planList;
     }
-    public void updateShort(Plan plan) {
-        try (Connection connection = DbUtil.getConnection();
-             PreparedStatement statement = connection.prepareStatement(updateQUERY)) {
-            statement.setInt(5, plan.getId());
-            statement.setString(1, plan.getName());
-            statement.setString(2, plan.getDescription());
-            statement.setString(3, plan.getCreated());
-            statement.setInt(4, plan.getAdminId());
-            statement.executeUpdate();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
 
-    }
 }
 
 
