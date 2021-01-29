@@ -25,7 +25,7 @@ public class RemovePlan extends HttpServlet {
 
         PlanDao planPlanDao = new PlanDao();
         planPlanDao.delete(userId);
-        response.sendRedirect("/app/plax");
+        response.sendRedirect("/app/plan");
 
     }
 }
