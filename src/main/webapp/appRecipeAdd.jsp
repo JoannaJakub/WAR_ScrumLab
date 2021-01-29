@@ -1,8 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-
-<!DOCTYPE html>
-<html lang="pl">
+<html>
 
 <head>
     <meta charset="utf-8">
@@ -13,54 +11,69 @@
           crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css?family=Charmonman:400,700|Open+Sans:400,600,700&amp;subset=latin-ext"
           rel="stylesheet">
-    <link rel="stylesheet" href="./css/style.css">
+    <link href='<c:url value="/css/style.css"/>' rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css"
           integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
 </head>
 
 <body>
-<body>
-<%@ include file="fixed-header.jsp" %>
+<%@ include file="fixed-app_header.jsp" %>
 
 <section class="dashboard-section">
     <div class="row dashboard-nowrap">
         <%@ include file="fixed-app_dashboard.jsp" %>
-
         <div class="m-4 p-3 width-medium text-color-darker">
-            <div class="m-4 border-dashed view-height">
-                <div class="mt-4 ml-4 mr-4">
-                    <!-- fix action, method -->
-                    <!-- add name attribute for all inputs -->
-                    <form>
-
+            <div class="dashboard-content border-dashed p-3 m-4 view-height">
+                <form action="<c:url value="/app/recipe/add"/>" method="post">
+                    <div class="mt-4 ml-4 mr-4">
                         <div class="row border-bottom border-3">
-                            <div class="col"><h3 class="color-header text-uppercase">Zmień hasło</h3></div>
+                            <div class="col"><h3 class="color-header text-uppercase">Nowy przepis</h3></div>
                             <div class="col d-flex justify-content-end mb-2">
-                                <button type="submit" class="btn btn-color rounded-0 pt-0 pb-0 pr-4 pl-4">Zapisz
-                                </button>
+                                <button type="submit" class="btn btn-color rounded-0 pt-0 pb-0 pr-4 pl-4">Zapisz</button>
                             </div>
                         </div>
 
                         <table class="table borderless">
                             <tbody>
                             <tr class="d-flex">
-                                <th scope="row" class="col-2"><h4>Nowe hasło</h4></th>
+                                <th scope="row" class="col-2">Nazwa Przepisu</th>
                                 <td class="col-7">
-                                    <input class="w-100 p-1" value="">
+
+                                    <input name="name" class="w-100 p-1" value="">
                                 </td>
                             </tr>
                             <tr class="d-flex">
-                                <th scope="row" class="col-2"><h4>Powtórz hasło</h4></th>
-                                <td class="col-7">
-                                    <input class="w-100 p-1" value="">
+                                <th scope="row" class="col-2">Opis przepisu</th>
+                                <td class="col-7"><textarea name = "description" class="w-100 p-1" rows="5"></textarea></td>
+                            </tr>
+                            <tr class="d-flex">
+                                <th scope="row" class="col-2">Przygotowanie (minuty)</th>
+                                <td class="col-3">
+                                    <input name= "preparationTime" class="p-1" type="number" value="">
                                 </td>
                             </tr>
                             </tbody>
                         </table>
-                    </form>
-                </div>
-            </div>
 
+                        <div class="row d-flex">
+                            <div class="col-5 border-bottom border-3"><h3 class="text-uppercase">Sposób
+                                przygotowania:</h3></div>
+                            <div class="col-2"></div>
+                            <div class="col-5 border-bottom border-3"><h3 class="text-uppercase">Składniki:</h3></div>
+                        </div>
+                        <div class="row d-flex">
+                            <div class="col-5 p-4">
+                                <textarea name="preparation" class="w-100 p-1" rows="10"></textarea>
+                            </div>
+                            <div class="col-2"></div>
+
+                            <div class="col-5 p-4">
+                                <textarea name="ingredients" class="w-100 p-1" rows="10"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
 </section>
