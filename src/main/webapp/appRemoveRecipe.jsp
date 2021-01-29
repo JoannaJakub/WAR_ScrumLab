@@ -25,10 +25,10 @@
             <div class="dashboard-content border-dashed p-3 m-4 view-height">
                 <div class="row border-bottom border-3 p-1 m-1">
                     <div class="col noPadding">
-                        <h3 class="color-header text-uppercase">USUWANIE PRZEPISU Z PLANU</h3>
+                        <h3 class="color-header text-uppercase">USUWANIE PRZEPISU</h3>
                     </div>
                 </div>
-                <div class="alert">Czy na pewno chcesz usunąć ten przepis z planu?
+                <div class="alert">Czy na pewno chcesz usunąć ten przepis?
                 </div>
                 <tr class="d-flex">
                     <td class="col-2 d-flex align-items-center justify-content-center flex-wrap">
