@@ -62,55 +62,30 @@
                 <table class="table">
                     <thead>
                     <tr class="d-flex">
-                        <th class="col-2">${lastPlanDay}</th>
+                        <th class="col-2">${day_name}</th>
                         <th class="col-8"></th>
                         <th class="col-2"></th>
                     </tr>
                     </thead>
-                    <tbody>
-                    <tr class="d-flex">
-                        <td class="col-2">śniadanie</td>
-                        <td class="col-8">płatki owsiane z jagodami i komosą ryżową</td>
-                        <td class="col-2"><button type="button" class="btn btn-primary rounded-0">Szczegóły</button></td>
-                    </tr>
-                    <tr class="d-flex">
-                        <td class="col-2">śniadanie</td>
-                        <td class="col-8">kanapka z pastą rybną</td>
-                        <td class="col-2"><button type="button" class="btn btn-primary rounded-0">Szczegóły</button></td>
-                    </tr>
-                    <tr class="d-flex">
-                        <td class="col-2">obiad</td>
-                        <td class="col-8">zupa pomidorowa</td>
-                        <td class="col-2"><button type="button" class="btn btn-primary rounded-0">Szczegóły</button></td>
-                    </tr>
-                    </tbody>
-                </table>
-                <table class="table">
-                    <thead>
-                    <tr class="d-flex">
-                        <th class="col-2">Wtorek</th>
-                        <th class="col-8"></th>
-                        <th class="col-2"></th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr class="d-flex">
-                        <td class="col-2">śniadanie</td>
-                        <td class="col-8">płatki owsiane z jagodami i komosą ryżową</td>
-                        <td class="col-2"><button type="button" class="btn btn-primary rounded-0">Szczegóły</button></td>
-                    </tr>
-                    <tr class="d-flex">
-                        <td class="col-2">drugie śniadanie</td>
-                        <td class="col-8">pączki</td>
-                        <td class="col-2"><button type="button" class="btn btn-primary rounded-0">Szczegóły</button></td>
-                    </tr>
-                    <tr class="d-flex">
-                        <td class="col-2">obiad</td>
-                        <td class="col-8">schabowy w panierce</td>
-                        <td class="col-2"><button type="button" class="btn btn-primary rounded-0">Szczegóły</button></td>
-                    </tr>
-                    </tbody>
-                </table>
+                        <tbody class="text-color-lighter">
+
+                       <%-- <c:forEach begin="0" step="1" end="${recipes.size()-1}" var="number">
+
+                            <tr class="d-flex">
+                                <th scope="row" class="col-1">${recipes.get(number).getRecipeId()}</th>
+                                <td class="col-2">
+                                        ${recipes.get(number).getDayName()}
+                                </td>
+                                <td clas="col-20">
+                                        ${recipes.get(number).getRecipeDescription()}
+                                </td>
+                                <td class="flex-box" ><a href="#" class="btn btn-info rounded-0 text-light">Szczegóły</a></td>
+                            </tr>
+
+                        </c:forEach>--%>
+
+                        </tbody>
+                    </table>
             </div>
         </div>
     </div>
