@@ -143,6 +143,7 @@ public class AdminDao {
                     admin.setUnsecurePassword(resultSet.getString("password"));
                     admin.setEnable(resultSet.getInt("enable"));
                     admin.setId(resultSet.getInt("id"));
+                    admin.setFirstName(resultSet.getString("first_name"));
                 }
             }
         } catch (Exception e) {

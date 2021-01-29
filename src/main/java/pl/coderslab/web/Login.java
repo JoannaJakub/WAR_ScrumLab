@@ -51,6 +51,7 @@ public class Login extends HttpServlet {
             response.sendRedirect("/app/dashboard");
             sess.setAttribute("enable", admin.getEnable());
             sess.setAttribute("id", admin.getId());
+            sess.setAttribute("name", admin.getFirstName());
 
         }
     }
