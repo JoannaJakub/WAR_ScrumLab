@@ -122,7 +122,7 @@ public class PlanDao {
 
             boolean deleted = statement.execute();
             if (!deleted) {
-                throw new NotFoundException("Product not founs");
+                throw new NotFoundException("Product not foundd");
             }
         } catch (Exception e) {
             e.printStackTrace();
