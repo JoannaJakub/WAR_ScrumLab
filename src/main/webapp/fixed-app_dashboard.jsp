@@ -1,6 +1,3 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-
 <ul class="nav flex-column long-bg">
     <li class="nav-item">
         <a class="nav-link" href="<c:url value="/app/dashboard"/>">
@@ -15,8 +12,7 @@
         </a>
     </li>
     <li class="nav-item">
-<%--        <a class="nav-link" href="<c:url value="/app/plan"/>">--%>
-    <a class="nav-link" href="appSchedules.jsp">
+        <a class="nav-link" href="<c:url value="/app/plan"/>">
             <span>Plany</span>
             <i class="fas fa-angle-right"></i>
         </a>
