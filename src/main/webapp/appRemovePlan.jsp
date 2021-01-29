@@ -30,10 +30,9 @@
                 </div>
                 <div class="alert">Czy nadal pewno chcesz usunąć planu?
                 </div>
-                <form action="/app/removePlan" method="post">
-                    <input type="hidden" name="recipeId" id="id" value="<%= request.getParameter("id") %>">
+                <form action="<c:url value="/app/removePlan"/>" method="post">
                     <button type="submit"> <div class="btn btn-danger">OK</div></button>
-                    <div class="btn btn-warning"><a href="/app/plan">Anuluj</a></div>
+                    <div class="btn btn-warning"><a href="<c:url value="/app/plan"/>">Anuluj</a></div>
                 </form>
             </div>
         </div>
