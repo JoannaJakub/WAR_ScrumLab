@@ -25,20 +25,16 @@
             <div class="dashboard-content border-dashed p-3 m-4 view-height">
                 <div class="row border-bottom border-3 p-1 m-1">
                     <div class="col noPadding">
-                        <h3 class="color-header text-uppercase">USUWANIE PRZEPISU Z PLANU</h3>
+                        <h3 class="color-header text-uppercase">Usunięcie nie powiodło się!</h3>
                     </div>
                 </div>
-                <div class="alert">Czy na pewno chcesz usunąć ten przepis z planu?
+                <div class="alert">Nie możesz usunąć wybranego przepisu, ponieważ jest on przypisany do jakiegoś istniejącego planu. Wróć do listy przepisów.
                 </div>
                 <tr class="d-flex">
-                    <td class="col-2 d-flex align-items-center justify-content-center flex-wrap">
-                <form method="post">
-                    <input type="hidden" name="recipeId" id="id" value="<%= request.getParameter("id") %>">
-                    <button type="submit"> <div class="btn btn-danger rounded-0 text-light m-1">TAK, USUŃ</div></button>
-                </form></br>
-                <a href="<c:url value="/app/recipe"/>" class="btn btn-info rounded-0 text-light m-1">Anuluj</a>
-            </td>
-            </tr>
+                <td class="col-2 d-flex align-items-center justify-content-center flex-wrap">
+                    <a href="<c:url value="/app/recipe"/>" class="btn btn-info rounded-0 text-light m-1">Wróć</a>
+                </td>
+                </tr>
             </div>
         </div>
     </div>
