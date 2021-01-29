@@ -163,26 +163,26 @@ public class PlanDao {
         return counter;
 
     }
-
-    public static List<LastPlan> lastPlan(int id) {
-        List<LastPlan> planDetails = new ArrayList<>();
-        try (Connection connection = DbUtil.getConnection();
-             PreparedStatement statement = connection.prepareStatement(lastPlanQUERY);
-             ResultSet resultSet = statement.executeQuery()) {
-            while (resultSet.next()) {
-                LastPlan tempPlanDetails = new LastPlan();
-                tempPlanDetails.setDayName(resultSet.getString("day_name"));
-                tempPlanDetails.setMealName(resultSet.getString("meal_name"));
-                tempPlanDetails.setRecipeName(resultSet.getString("recipe_name"));
-                tempPlanDetails.setRecipeDescription(resultSet.getString("recipe_description"));
-                tempPlanDetails.setRecipeId(resultSet.getInt("recipe_id"));
-                planDetails.add(tempPlanDetails);
-
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return planDetails;
+//
+//    public static List<LastPlan> lastPlan(int id) {
+//        List<LastPlan> planDetails = new ArrayList<>();
+//        try (Connection connection = DbUtil.getConnection();
+//             PreparedStatement statement = connection.prepareStatement(lastPlanQUERY);
+//             ResultSet resultSet = statement.executeQuery()) {
+//            while (resultSet.next()) {
+//                LastPlan tempPlanDetails = new LastPlan();
+//                tempPlanDetails.setDayName(resultSet.getString("day_name"));
+//                tempPlanDetails.setMealName(resultSet.getString("meal_name"));
+//                tempPlanDetails.setRecipeName(resultSet.getString("recipe_name"));
+//                tempPlanDetails.setRecipeDescription(resultSet.getString("recipe_description"));
+//                tempPlanDetails.setRecipeId(resultSet.getInt("recipe_id"));
+//                planDetails.add(tempPlanDetails);
+//
+//            }
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//        return planDetails;
 
        /* HashMap<String,List<LastPlan>> items = new HashMap<>();
         planList.forEach(it->{
@@ -196,8 +196,8 @@ public class PlanDao {
 */
       //  return planDetails;
 
-
-    }
+//
+//    }
     public static String getLastPlanDay(int id) {
         try (Connection conn = DbUtil.getConnection();
              PreparedStatement preparedStatement = conn.prepareStatement(lastPlanDayQUERY)
@@ -281,7 +281,20 @@ public class PlanDao {
         }
         return planList;
     }
+    public void updateShort(Plan plan) {
+        try (Connection connection = DbUtil.getConnection();
+             PreparedStatement statement = connection.prepareStatement(updateQUERY)) {
+            statement.setInt(5, plan.getId());
+            statement.setString(1, plan.getName());
+            statement.setString(2, plan.getDescription());
+            statement.setString(3, plan.getCreated());
+            statement.setInt(4, plan.getAdminId());
+            statement.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
+    }
 }
 
 
