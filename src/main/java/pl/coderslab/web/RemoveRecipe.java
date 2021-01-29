@@ -1,3 +1,4 @@
+
 package pl.coderslab.web;
 
 import pl.coderslab.dao.RecipeDao;
@@ -18,8 +19,8 @@ public class RemoveRecipe extends HttpServlet {
 
         Recipe_PlanDAO recipe_planDAO = new Recipe_PlanDAO();
         if (recipe_planDAO.countRecipesInPlan(recipeId) == 0) {
-        getServletContext().getRequestDispatcher("/appRemoveRecipe.jsp").forward(request, response);
-    } else { getServletContext().getRequestDispatcher("/appRemoveRecipeError.jsp").forward(request, response);
+            getServletContext().getRequestDispatcher("/appRemoveRecipe.jsp").forward(request, response);
+        } else { getServletContext().getRequestDispatcher("/appRemoveRecipeError.jsp").forward(request, response);
         }
     }
 
