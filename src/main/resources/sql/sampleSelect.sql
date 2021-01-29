@@ -13,3 +13,12 @@ JOIN day_name on day_name.id=day_name_id
 JOIN recipe on recipe.id=recipe_id WHERE
 recipe_plan.plan_id =  (SELECT MAX(id) from plan WHERE admin_id = 1) -- zamiast 1 należy wstawić id użytkownika (tabela admins) --
 ORDER by day_name.display_order, recipe_plan.display_order;
+
+
+
+SELECT  meal_name
+FROM `recipe_plan`
+         JOIN day_name on day_name.id=day_name_id
+         JOIN recipe on recipe.id=recipe_id WHERE
+        recipe_plan.plan_id =  (SELECT MAX(id) from plan WHERE admin_id = 2)
+ORDER by day_name.display_order desc, recipe_plan.display_order;

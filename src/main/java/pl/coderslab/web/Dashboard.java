@@ -21,43 +21,9 @@ public class Dashboard extends HttpServlet {
 
         int userId = (int) sess.getAttribute("id");
         sess.setAttribute("countRecipes", RecipeDao.countRecipes(userId));
-      //  System.out.println(RecipeDao.countRecipes(userId));
+        System.out.println(RecipeDao.countRecipes(userId));
         sess.setAttribute("countPlansQuery", PlanDao.countPlans(userId));
-       sess.setAttribute("recentPlanName", PlanDao.getLastPlanName(userId));
-       sess.setAttribute("lastPlanDay", PlanDao.getLastPlanDay(userId));
-      /* sess.setAttribute("lastPlanDay", PlanDao.getlastPlanDay(userId));
-        System.out.println(PlanDao.getlastPlanDay(userId));*/
-
-
-
-
-
-
-
-    //   System.out.println(PlanDao.getLastPlanName(userId));
-
-
-
-
-
-
-
-
-//sess.setAttribute("weekdaysInPlan", PlanDao.lastPlan(userId, PlanDao.lastPlan(userId).getId())););
-
-        //Map<String, List<LastPlan>> dailyRecipePlans = new HashMap<>();
-
-/*
-        LastPlan{dayName='poniedziałek',
-            mealName='Śniadanie',
-            recipeName='Przepis 4',
-            recipeDescription='Opis przepisu 4',
-            recipeId='0'}
-*/
-
-
-      //  System.out.println(PlanDao.lastPlan("dayName='poniedziałek'"));
-
+        sess.setAttribute("recentPlanName", PlanDao.getLastPlanName(userId));
 
         //
 //        sess.setAttribute("day_name", lastPlanQUERY(userId));
@@ -78,7 +44,7 @@ public class Dashboard extends HttpServlet {
         System.out.print( PlanDao.lastPlanQUERY(userId));
 */
 
-        getServletContext().getRequestDispatcher("/appDashboard.jsp").forward(request, response);
+        getServletContext().getRequestDispatcher("/dashboard.jsp").forward(request, response);
 
     }
 }

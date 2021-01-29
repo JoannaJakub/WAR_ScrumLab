@@ -164,28 +164,29 @@ public class PlanDao {
     }
 
     public static List<LastPlan> lastPlanQUERY(int id) {
-        List<LastPlan> planList = new LinkedList<>();
-        try (Connection connection = DbUtil.getConnection();
-             PreparedStatement statement = connection.prepareStatement(lastPlanQUERY)
+        List<LastPlan> planDetails = new LinkedList<>();
+        try (Connection conn = DbUtil.getConnection();
+             PreparedStatement preparedStatement = conn.prepareStatement(lastPlanQUERY)
         ) {
-            statement.setInt(1, id);
-            try (ResultSet resultSet = statement.executeQuery()) {
-                while (resultSet.next()) {
-                    LastPlan lastPlan = new LastPlan();
-                    lastPlan.setDayName(resultSet.getString("day_name"));
-                    lastPlan.setMealName(resultSet.getString("meal_name"));
-                    lastPlan.setRecipeName(resultSet.getString("recipe_name"));
-                    lastPlan.setRecipeDescription(resultSet.getString("recipe_description"));
-                    lastPlan.setRecipeId(resultSet.getInt("recipe_id"));
-                    planList.add(lastPlan);
-
-                }
+            preparedStatement.setInt(1, id);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                LastPlan tempPlanDetails = new LastPlan(
+                        resultSet.getString("day_name"),
+                        resultSet.getString("meal_name"),
+                        resultSet.getString("recipe_name"),
+                        resultSet.getString("recipe_description"),
+                        resultSet.getInt("recipe_id")
+                );
+                planDetails.add(tempPlanDetails);
+                System.out.println(tempPlanDetails);
             }
-
-        } catch (SQLException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
-        HashMap<String,List<LastPlan>> items = new HashMap<>();
+        return planDetails;
+
+       /* HashMap<String,List<LastPlan>> items = new HashMap<>();
         planList.forEach(it->{
             List<LastPlan> list = items.get(it.getDayName());
             if(list==null){
@@ -194,8 +195,8 @@ public class PlanDao {
             list.add(it);
             items.put(it.getDayName(),list);
         });
-
-        return planList;
+*/
+      //  return planDetails;
 
 
     }
