@@ -32,7 +32,7 @@
     <li class="nav-item">
         <a class="nav-link" href="/superAdminUsers.jsp">
             <span>Użytkownicy</span>
-            <i class="fas fa-angle-righ"></i>
+            <i class="fas fa-angle-right"></i>
         </a>
     </li>
 </ul>
