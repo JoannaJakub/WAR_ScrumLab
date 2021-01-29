@@ -6,10 +6,32 @@ import pl.coderslab.utils.DbUtil;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public class Recipe_PlanDAO {
 
     private static final String ADDQUERY = "INSERT INTO scrumlab.recipe_plan(id,recipe_id,meal_name,display_order,day_name_id,plan_id) VALUES (?,?,?,?,?);";
+    private static final String COUNT_RECIPES_IN_PLAN_QUERY = "SELECT COUNT(recipe_id) FROM scrumlab.recipe_plan WHERE recipe_id = ?;";
+
+    public int countRecipesInPlan (int recipeId){
+        int counter = 0;
+        try (Connection connection = DbUtil.getConnection();
+             PreparedStatement statement = connection.prepareStatement(COUNT_RECIPES_IN_PLAN_QUERY)) {
+            statement.setInt(1, recipeId);
+
+
+            try (ResultSet resultSet = statement.executeQuery()) {
+                while (resultSet.next()) {
+                    counter = resultSet.getInt("count(recipe_id)");
+                }
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return counter;
+
+    }
 
     public Recipe_Plan create (Recipe_Plan recipe_plan) {
         try (Connection connection = DbUtil.getConnection();
