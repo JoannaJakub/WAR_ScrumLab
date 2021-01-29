@@ -20,7 +20,7 @@ public class AdminDao {
     private static final String UPDATE_ADMIN_QUERY = "UPDATE scrumlab.admins SET first_name = ? , last_name = ?, email = ?, password = ?, superadmin = ?, enable = ? WHERE	id = ?;";
     private static final String LOGIN_SEARCH_NAME = "SELECT * from scrumlab.admins WHERE email = ?;";
 
-    public Admin read(int id) {
+    public static Admin read(int id) {
         Admin admin = new Admin();
         try (Connection connection = DbUtil.getConnection();
              PreparedStatement statement = connection.prepareStatement(READ_ADMIN_QUERY)

@@ -13,7 +13,7 @@ import java.sql.SQLException;
 import java.util.*;
 
 public class PlanDao {
-    //
+//
     private static final String readQUERY = "SELECT * from scrumlab.plan where id = ?;";
     private static final String readQUERY2 = "SELECT * from scrumlab.plan where admin_id = ?;";
     private static final String findAllQUERY = "SELECT * FROM scrumlab.plan;";
@@ -27,8 +27,15 @@ public class PlanDao {
             "    JOIN recipe on recipe.id=recipe_id WHERE" +
             "    recipe_plan.plan_id =  (SELECT MAX(id) from plan WHERE admin_id = ?)" +
             "    ORDER by day_name.display_order, recipe_plan.display_order";
-    private static final String lastPlanName = "SELECT plan.name AS plan_name FROM plan " +
+
+    private static final String lastPlanNameQUERY ="SELECT plan.name AS plan_name FROM plan " +
             "WHERE id = (SELECT MAX(id) FROM plan WHERE admin_id = ?);";
+    private static final String lastPlanDayQUERY = "SELECT day_name.name as day_name\n" +
+            "FROM `recipe_plan`JOIN day_name on day_name.id=day_name_id\n" +
+            "WHERE recipe_plan.plan_id =  (SELECT MAX(id) from plan WHERE admin_id = ?)\n" +
+            " ORDER by day_name.display_order DESC limit 1;";
+
+
 
     public Plan read(int id) {
         Plan plan = new Plan();
@@ -158,44 +165,59 @@ public class PlanDao {
     }
 
     public static List<LastPlan> lastPlanQUERY(int id) {
-        List<LastPlan> planList = new LinkedList<>();
-        try (Connection connection = DbUtil.getConnection();
-             PreparedStatement statement = connection.prepareStatement(lastPlanQUERY)
+        List<LastPlan> planDetails = new LinkedList<>();
+        try (Connection conn = DbUtil.getConnection();
+             PreparedStatement preparedStatement = conn.prepareStatement(lastPlanQUERY)
         ) {
-            statement.setInt(1, id);
-            try (ResultSet resultSet = statement.executeQuery()) {
-                while (resultSet.next()) {
-                    LastPlan lastPlan = new LastPlan();
-                    lastPlan.setDayName(resultSet.getString("day_name"));
-                    lastPlan.setMealName(resultSet.getString("meal_name"));
-                    lastPlan.setRecipeName(resultSet.getString("recipe_name"));
-                    lastPlan.setRecipeDescription(resultSet.getString("recipe_description"));
-                    lastPlan.setRecipeId(resultSet.getInt("recipe_id"));
-                    planList.add(lastPlan);
-
-                }
+            preparedStatement.setInt(1, id);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                LastPlan tempPlanDetails = new LastPlan(
+                        resultSet.getString("day_name"),
+                        resultSet.getString("meal_name"),
+                        resultSet.getString("recipe_name"),
+                        resultSet.getString("recipe_description"),
+                        resultSet.getInt("recipe_id")
+                );
+                planDetails.add(tempPlanDetails);
+                System.out.println(tempPlanDetails);
             }
-
-        } catch (SQLException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
-        HashMap<String, List<LastPlan>> items = new HashMap<>();
-        planList.forEach(it -> {
+        return planDetails;
+
+       /* HashMap<String,List<LastPlan>> items = new HashMap<>();
+        planList.forEach(it->{
             List<LastPlan> list = items.get(it.getDayName());
-            if (list == null) {
+            if(list==null){
                 list = new LinkedList();
             }
             list.add(it);
-            items.put(it.getDayName(), list);
+            items.put(it.getDayName(),list);
         });
+*/
+      //  return planDetails;
 
-        return planList;
 
     }
-
+    public static String getLastPlanDay(int id) {
+        try (Connection conn = DbUtil.getConnection();
+             PreparedStatement preparedStatement = conn.prepareStatement(lastPlanDayQUERY)
+        ) {
+            preparedStatement.setInt(1, id);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                return resultSet.getString("day_name");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "sfsf";
+    }
     public static String getLastPlanName(int id) {
         try (Connection conn = DbUtil.getConnection();
-             PreparedStatement preparedStatement = conn.prepareStatement(lastPlanName)
+             PreparedStatement preparedStatement = conn.prepareStatement(lastPlanNameQUERY)
         ) {
             preparedStatement.setInt(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -205,7 +227,7 @@ public class PlanDao {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return "qwerty";
+        return "Last Plan Name";
     }
 
     public static List<Plan> planList(int id) {
@@ -262,6 +284,7 @@ public class PlanDao {
         }
         return planList;
     }
+
 }
 
 
