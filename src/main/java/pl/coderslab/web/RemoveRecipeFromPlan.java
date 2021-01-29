@@ -27,6 +27,6 @@ public class RemoveRecipeFromPlan extends HttpServlet {
 
         RecipeDao recipeRecipeDao = new RecipeDao();
         recipeRecipeDao.delete(userId);
-        response.sendRedirect("/app/recipe/details");
+        response.sendRedirect("/app/appDetailsSchedule");
     }
 }

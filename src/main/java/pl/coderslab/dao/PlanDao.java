@@ -15,6 +15,7 @@ import java.util.*;
 public class PlanDao {
 //
     private static final String readQUERY = "SELECT * from scrumlab.plan where id = ?;";
+    private static final String readQUERY2 = "SELECT * from scrumlab.plan where admin_id = ?;";
     private static final String findAllQUERY = "SELECT * FROM scrumlab.plan;";
     private static final String createQUERY = "INSERT INTO scrumlab.plan(id, name, description, created, admin_id) VALUES (?,?,?,?,?);";
     private static final String deleteQUERY = "DELETE FROM scrumlab.plan where id = ?;";
@@ -229,7 +230,60 @@ public class PlanDao {
         return "Last Plan Name";
     }
 
+    public static List<Plan> planList(int id) {
 
+        List<Plan> planList = new ArrayList<>();
+        List<Plan> reverseList = new ArrayList<>();
+
+        try (Connection connection = DbUtil.getConnection();
+             PreparedStatement statement = connection.prepareStatement(readQUERY2)) {
+            statement.setInt(1, id);
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                Plan planAdd = new Plan();
+                planAdd.setId(resultSet.getInt("id"));
+                planAdd.setName(resultSet.getString("name"));
+                planAdd.setDescription(resultSet.getString("description"));
+                planList.add(planAdd);
+            }
+
+            for (int i = planList.size() - 1; i >= 0; i--) {
+                if (i <= 1) {
+                    reverseList.add(planList.get(i));
+                } else {
+                    reverseList.add(planList.get(i - 1));
+                }
+
+            }
+
+
+        } catch (SQLException e) {
+            return null;
+        }
+        return reverseList;
+
+    }
+    public List<Plan> FindAllFromAdminId(int id) {
+        List<Plan> planList = new ArrayList<>();
+        try (Connection connection = DbUtil.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(readQUERY2)) {
+            preparedStatement.setInt(1, id);
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                while (resultSet.next()) {
+                    Plan planAdd = new Plan();
+                    planAdd.setId(resultSet.getInt("id"));
+                    planAdd.setName(resultSet.getString("name"));
+                    planAdd.setDescription(resultSet.getString("description"));
+                    planAdd.setCreated(resultSet.getString("created"));
+                    planAdd.setAdminId(resultSet.getInt("admin_id"));
+                    planList.add(planAdd);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return planList;
+    }
 
 }
 
