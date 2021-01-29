@@ -27,8 +27,8 @@ public class Dashboard extends HttpServlet {
         sess.setAttribute("recentPlanName", PlanDao.getLastPlanName(userId));
         sess.setAttribute("day_name", PlanDao.getLastPlanDay(userId));
 
-        List<LastPlan> lastPlan = PlanDao.lastPlan(userId);
-        request.setAttribute("recipes", lastPlan);
+//        List<LastPlan> lastPlan = PlanDao.lastPlan(userId);
+//        request.setAttribute("recipes", lastPlan);
         getServletContext().getRequestDispatcher("/appDashboard.jsp").forward(request, response);
 
 

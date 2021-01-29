@@ -20,7 +20,6 @@ public class RemovePlan extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         PlanDao planPlanDao = new PlanDao();
-        request.setAttribute("id" , request.getParameter("plan_id"));
         planPlanDao.delete(Integer.parseInt(request.getParameter("id")));
         response.sendRedirect("/app/plan");
 
