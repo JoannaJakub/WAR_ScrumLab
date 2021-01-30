@@ -20,14 +20,20 @@
         </a>
     </li>
     <li class="nav-item">
-        <a class="nav-link" href="/appEditUserData">
+        <a class="nav-link" href="<c:url value="/appEditUserData"/>">
             <span>Edytuj dane</span>
             <i class="fas fa-angle-right"></i>
         </a>
     </li>
     <li class="nav-item">
-        <a class="nav-link disabled" href="/appEditPassword">
+        <a class="nav-link disabled" href="<c:url value="/appEditPassword"/>">
             <span>Zmień hasło</span>
+            <i class="fas fa-angle-right"></i>
+        </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link disabled" href="<c:url value="/logout"/>">
+            <span>Wyloguj</span>
             <i class="fas fa-angle-right"></i>
         </a>
     </li>
